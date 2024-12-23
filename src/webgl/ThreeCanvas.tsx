@@ -1,10 +1,10 @@
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import React, { LegacyRef, useEffect, useRef, useState } from 'react';
-import { ShaderMaterial } from 'three';
+import { ShaderMaterial, Vector3 } from 'three';
 import vsSource from 'src/Shaders/tpmsVertexShader.glsl?raw';
 // import fsSource from 'src/Shaders/tpmsCircles.glsl?raw';
 import { useData } from '../state/state';
-import { getText } from './helpermethods';
+import { getColor, getText } from './helpermethods';
 import { Version0Type } from '../modelDefinition/types/version0.generatedType';
 import { Text } from '@react-three/drei';
 import { getFragmentShader } from './shaderConstructors/factory';
@@ -36,6 +36,12 @@ const Plane = (...props: any) => {
   const materialRef = useRef<ShaderMaterial>(null);
   const [fShader, setState] = useState(getFragmentShader(data as any as Version0Type));
 
+  useFrame(({ clock }) => {
+    if (materialRef.current) {
+      materialRef.current.uniforms.uTime = { value: clock.getElapsedTime() };
+    }
+  });
+
   useEffect(() => {
     setState(getFragmentShader(data as any as Version0Type));
     if (materialRef.current) materialRef.current.needsUpdate = true;
@@ -47,7 +53,15 @@ const Plane = (...props: any) => {
         <bufferAttribute attach='attributes-position' count={6} array={vertices} itemSize={3} />
         <bufferAttribute attach='attributes-uv' count={6} array={uvs} itemSize={2} />
       </bufferGeometry>
-      <shaderMaterial needsUpdate={true} ref={materialRef} fragmentShader={fShader} vertexShader={vsSource} />
+      <shaderMaterial
+        uniforms={{
+          uTime: { value: 0.5 },
+        }}
+        needsUpdate={true}
+        ref={materialRef}
+        fragmentShader={fShader}
+        vertexShader={vsSource}
+      />
     </mesh>
   );
 };
