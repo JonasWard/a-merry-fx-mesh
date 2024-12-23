@@ -8,6 +8,7 @@ import { getColor, getText } from './helpermethods';
 import { Version0Type } from '../modelDefinition/types/version0.generatedType';
 import { Text } from '@react-three/drei';
 import { getFragmentShader } from './shaderConstructors/factory';
+import { FONT_SIZE, MAX_TEXT_WIDTH } from './shaderConstructors/screenBounds';
 
 const size = 10000;
 
@@ -89,8 +90,8 @@ export const ThreeCanvas: React.FC<{
         color='black'
         fillOpacity={0.3}
         textAlign='center'
-        fontSize={50}
-        maxWidth={500}
+        fontSize={FONT_SIZE}
+        maxWidth={MAX_TEXT_WIDTH}
         children={text}
       />
     </Canvas>
