@@ -83,10 +83,11 @@ export const ThreeCanvas: React.FC<{
     >
       <Plane />
       <Text
-        material={new ShaderMaterial({ vertexShader: vsSource, fragmentShader: getFragmentShader({ 'Main Methods': { s: { name: 'Text', value: 2 } } }) })}
+        // material={new ShaderMaterial({ vertexShader: vsSource, fragmentShader: getFragmentShader({ 'Main Methods': { s: { name: 'Text', value: 2 } } }) })}
         anchorX='center'
         anchorY='middle'
         color='black'
+        fillOpacity={0.3}
         textAlign='center'
         fontSize={50}
         maxWidth={500}
