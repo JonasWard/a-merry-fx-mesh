@@ -1,2 +1,2 @@
-export const MAX_HEIGHT = window.innerHeight;
-export const MAX_WIDTH = window.innerWidth;
+export const MAX_HEIGHT = Math.max(window.innerHeight, window.innerWidth) * 1.15;
+export const MAX_WIDTH = Math.max(window.innerHeight, window.innerWidth) * 1.15;
