@@ -1,0 +1,25 @@
+{
+  "short_name": "Fx-Mesh",
+  "name": "A Merry Fx-Mesh to You!",
+  "icons": [
+    {
+      "src": "fx-mesh.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "fx-mesh-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "fx-mesh.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
