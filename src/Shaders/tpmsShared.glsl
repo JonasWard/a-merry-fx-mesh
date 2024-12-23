@@ -1,4 +1,5 @@
 varying vec3 uvV;
+uniform float uTime;
 
 float sdUnion(float d0, float d1) {
   return min(d0, d1);

@@ -1,5 +1,6 @@
 import { IntDataEntry } from 'url-safe-bitpacking/dist/types';
 import { BASE_64_TEXT } from '../modelDefinition/types/indexText';
+import { ColorType } from '../modelDefinition/types/version0.generatedType';
 
 /**
  * Benchmarking helper method that wraps a method, returns it output and measure the output
@@ -17,3 +18,4 @@ export const measurePerformance = (fn: () => any, text?: string) => {
 };
 
 export const getText = (text: { s: IntDataEntry; v: { Text: IntDataEntry }[] }) => text.v.map((i) => BASE_64_TEXT[i.Text.value]).join('');
+export const getColor = (c: ColorType): [number, number, number] => [c.R.value / 255, c.G.value / 255, c.B.value / 255];

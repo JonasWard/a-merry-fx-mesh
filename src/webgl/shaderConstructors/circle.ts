@@ -23,24 +23,69 @@ const getCircles = (minSize: number, maxSize: number, count: number, seed: numbe
   return xs.map((x, i) => [x, ys[i], rs[i]]);
 };
 
-export const getCircleFragmentShader = (count: number, minSize: number, maxSize: number, seed: number, sinAmplitude: number): string => {
+export const getCircleFragmentShader = (
+  count: number,
+  minSize: number,
+  maxSize: number,
+  seed: number,
+  sinAmplitude: number,
+  color0: [number, number, number],
+  color1: [number, number, number],
+  rotationSpeed: number,
+  angleMultiplier: number,
+  centerOffsetMultiplier: number,
+  edgeThickness: number
+): string => {
   const [sizeMin, sizeMax] = [minSize, maxSize].sort((a, b) => a - b);
   const circles = getCircles(sizeMin, sizeMax, count, seed);
 
   return `
+const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
+const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );
+const float ROTATION_VELOCITY = ${rotationSpeed.toFixed(3)};
+const float ANGLE_MULTIPLIER = ${angleMultiplier.toFixed(3)};
+const float CENTER_OFFSET_MULTIPLIER = ${centerOffsetMultiplier.toFixed(3)};
+const float EDGE_THICKNESS = ${edgeThickness.toFixed(3)};
+
 ${getCircleArray(circles)}
 ${sharedMethods}
 ${circleMethods}
 
-void main() {
+float sdMethod(vec2 p) {
   float d = 10000.0;
   for (int i = 0; i < ${CIRCLE_COUNT_VARIABLE_NAME}; i++) {
-    d = sdUnion(sdCircle(${CIRCLES_VARIABLE_NAME}[i], uvV.xy), d);
+    d = sdUnion(sdCircle(rotateCircleAroundCenter(${CIRCLES_VARIABLE_NAME}[i]), p), d);
+  }
+  
+  return d;
+}
+  
+vec3 normal(vec2 p)
+{
+    const float h = 0.0001; // replace by an appropriate value
+    const vec2 k = vec2(1,-1);
+    return normalize( k.xyy * sdMethod( p + k.xy * h ) + 
+                      k.yyx * sdMethod( p + k.yy * h ) + 
+                      k.yxy * sdMethod( p + k.yx * h ) + 
+                      k.xxx * sdMethod( p + k.xx * h ) );
+}
+
+void main() {
+  float d = sdMethod(uvV.xy);
+
+  ${
+    sinAmplitude > 0
+      ? `d = sin(d * ${sinAmplitude.toFixed(3)}) * 0.5 + 0.5;`
+      : `if (d < EDGE_THICKNESS) {
+    d = max(pow(d / EDGE_THICKNESS, 1.9), 0.0);
+  }
+  else {
+    d = 1.0;
+  }`
   }
 
-  ${sinAmplitude > 0 ? `d = sin(d * ${sinAmplitude.toFixed(3)}) * 0.5 + 0.5;` : ''}
-
-  gl_FragColor = vec4(d, d, d, 1.0);
+  gl_FragColor = vec4(getColor(d), 1.0);
+  
 }
 
 `;
