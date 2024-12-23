@@ -16,8 +16,6 @@ export const App: React.FC = () => {
   const data = useData((s) => s.data);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  console.log(defaultState);
-
   useEffect(() => {
     window.history.replaceState(null, 'Same Page Title', `/a-merry-fx-mesh/#${parserObjects.stringify(data)}`);
   }, [data]);
