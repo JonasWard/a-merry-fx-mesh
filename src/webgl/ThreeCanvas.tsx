@@ -7,10 +7,9 @@ import { useData } from '../state/state';
 import { getText } from './helpermethods';
 import { Version0Type } from '../modelDefinition/types/version0.generatedType';
 import { Text } from '@react-three/drei';
-import { getCircleFragmentShader } from './shaderConstructors/circle';
 import { getFragmentShader } from './shaderConstructors/factory';
 
-const size = 1000;
+const size = 10000;
 
 // prettier-ignore
 const vertices = new Float32Array([
@@ -65,11 +64,20 @@ export const ThreeCanvas: React.FC<{
       key='threejs-canvas'
       ref={canvasRef}
       orthographic
-      camera={{ zoom: 100, position: [0, 0, 1] }}
+      camera={{ zoom: 1, position: [0, 0, 1] }}
       style={{ width: '100vw', height: '100vh' }}
     >
       <Plane />
-      <Text anchorX='center' anchorY='middle' color='black' textAlign='center' fontSize={0.5} maxWidth={10} children={text} />
+      <Text
+        material={new ShaderMaterial({ vertexShader: vsSource, fragmentShader: getFragmentShader({ 'Main Methods': { s: { name: 'Text', value: 2 } } }) })}
+        anchorX='center'
+        anchorY='middle'
+        color='black'
+        textAlign='center'
+        fontSize={50}
+        maxWidth={500}
+        children={text}
+      />
     </Canvas>
   );
 };
