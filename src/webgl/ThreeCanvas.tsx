@@ -80,7 +80,7 @@ export const ThreeCanvas: React.FC<{
       ref={canvasRef}
       orthographic
       camera={{ zoom: 1, position: [0, 0, 1] }}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: '100svw', height: '100svh' }}
     >
       <Plane />
       <Text
