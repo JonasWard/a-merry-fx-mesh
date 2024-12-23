@@ -6,11 +6,12 @@ const mainMethods: EnumEntryDataType = [
   0,
   [
     DataEntryFactory.createInt(5, 1, 100, `count`),
-    DataEntryFactory.createFloat(0.1, 0.01, 5, 2, `minSize`),
-    DataEntryFactory.createFloat(0.1, 0.01, 5, 2, `maxSize`),
+    DataEntryFactory.createFloat(10, 1, 500, 0, `minSize`),
+    DataEntryFactory.createFloat(10, 1, 500, 0, `maxSize`),
+    DataEntryFactory.createFloat(0.05, 0.0, 1, 3, 'sinAmplitude'),
     DataEntryFactory.createInt(0, 0, 1023, `seed`),
   ],
-  [DataEntryFactory.createFloat(1, 0.001, 1000, 3, `${AttributeNames.MethodScale}`)],
+  [DataEntryFactory.createFloat(1, 0.0, 1000, 3, `${AttributeNames.MethodScale}`)],
 ];
 
 const normalsMaterial: OptionalEntryDataType = [

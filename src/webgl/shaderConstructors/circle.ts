@@ -20,13 +20,12 @@ const getCircles = (minSize: number, maxSize: number, count: number, seed: numbe
   const ys = getNNumbersForSeed(count, `${seed}.circle.y`).map((v) => (v - 0.5) * MAX_HEIGHT);
   const rs = getNNumbersForSeed(count, `${seed}.circle.r`).map((v) => v * (maxSize - minSize) + minSize);
 
-  console.log(getNNumbersForSeed(count, '1'));
-
   return xs.map((x, i) => [x, ys[i], rs[i]]);
 };
 
-export const getCircleFragmentShader = (count: number, minSize: number, maxSize: number, seed: number): string => {
-  const circles = getCircles(minSize, maxSize, count, seed);
+export const getCircleFragmentShader = (count: number, minSize: number, maxSize: number, seed: number, sinAmplitude: number): string => {
+  const [sizeMin, sizeMax] = [minSize, maxSize].sort((a, b) => a - b);
+  const circles = getCircles(sizeMin, sizeMax, count, seed);
 
   return `
 ${getCircleArray(circles)}
@@ -34,12 +33,12 @@ ${sharedMethods}
 ${circleMethods}
 
 void main() {
-  float d = 1000.0;
+  float d = 10000.0;
   for (int i = 0; i < ${CIRCLE_COUNT_VARIABLE_NAME}; i++) {
-    d = sdUnion(d, sdCircle(${CIRCLES_VARIABLE_NAME}[i], uvV.xy));
+    d = sdUnion(sdCircle(${CIRCLES_VARIABLE_NAME}[i], uvV.xy), d);
   }
 
-  d = sin(d * 40.0) * 0.5 + 0.5;
+  ${sinAmplitude > 0 ? `d = sin(d * ${sinAmplitude.toFixed(3)}) * 0.5 + 0.5;` : ''}
 
   gl_FragColor = vec4(d, d, d, 1.0);
 }

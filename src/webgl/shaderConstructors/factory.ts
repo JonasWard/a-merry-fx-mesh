@@ -15,7 +15,8 @@ export const getFragmentShader = (data: Version0Type): string => {
         (data['Main Methods'].v as any).count.value,
         (data['Main Methods'].v as any).minSize.value,
         (data['Main Methods'].v as any).maxSize.value,
-        (data['Main Methods'].v as any).seed.value
+        (data['Main Methods'].v as any).seed.value,
+        (data['Main Methods'].v as any).sinAmplitude.value
       );
     default:
       return simpleUVShader;

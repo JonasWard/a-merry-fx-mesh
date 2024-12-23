@@ -38,6 +38,7 @@ export type Version0Type = {
           ['minSize']: { value: number; name: 'minSize'; type: DataType.FLOAT; min: 0.01; max: 5; precision: 2; significand: 9 };
           ['maxSize']: { value: number; name: 'maxSize'; type: DataType.FLOAT; min: 0.01; max: 5; precision: 2; significand: 9 };
           ['seed']: { value: number; name: 'seed'; type: DataType.INT; min: 0; max: 1023; bits: 10 };
+          ['sinAmplitude']: { value: number; name: 'sinAmplitude'; type: DataType.FLOAT; min: 0; max: 1023; bits: 10 };
         };
       }
     | {
