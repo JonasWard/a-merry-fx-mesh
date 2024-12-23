@@ -1,2 +1,2 @@
-export const MAX_HEIGHT = 10;
-export const MAX_WIDTH = 10;
+export const MAX_HEIGHT = window.innerHeight;
+export const MAX_WIDTH = window.innerWidth;
