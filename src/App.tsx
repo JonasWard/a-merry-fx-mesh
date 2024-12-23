@@ -7,12 +7,9 @@ import { ThreeCanvas } from './webgl/ThreeCanvas';
 import { useParams } from 'react-router-dom';
 import { Button, message } from 'antd';
 import { LiaFileDownloadSolid } from 'react-icons/lia';
-import { Version0Type } from './modelDefinition/types/version0.generatedType';
-import { GiLaserBlast } from 'react-icons/gi';
-import { SiCncf } from 'react-icons/si';
 import { enumSemantics } from './modelDefinition/types/methodSemantics';
 
-const defaultState = parserObjects.stringify(parserObjects.parser());
+const defaultState = 'AxgARgA-Qeu3RMHave4an4inspirational4xMas88and4all4the4best4into4the4new4year46788love4Jonas';
 
 export const App: React.FC = () => {
   const { stateString } = useParams();
