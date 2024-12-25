@@ -53,6 +53,22 @@ const normalsMaterial: SingleLevelContentType[] = [
       DataEntryFactory.createInt(30, 0, 255, AttributeNames.B),
     ],
   ],
+  [
+    'text',
+    [
+      DataEntryFactory.createInt(0, 0, 255, AttributeNames.R),
+      DataEntryFactory.createInt(0, 0, 255, AttributeNames.G),
+      DataEntryFactory.createInt(0, 0, 255, AttributeNames.B),
+    ],
+  ],
+  [
+    'text stroke',
+    [
+      DataEntryFactory.createInt(255, 0, 255, AttributeNames.R),
+      DataEntryFactory.createInt(255, 0, 255, AttributeNames.G),
+      DataEntryFactory.createInt(255, 0, 255, AttributeNames.B),
+    ],
+  ],
 ];
 
 const materialDefinition: SingleLevelContentType[] = [[AttributeNames.NormalMaterial, normalsMaterial]];

@@ -1,10 +1,10 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import React, { LegacyRef, useEffect, useRef, useState } from 'react';
-import { ShaderMaterial, Vector3 } from 'three';
+import { Color, ShaderMaterial, Vector3 } from 'three';
 import vsSource from 'src/Shaders/tpmsVertexShader.glsl?raw';
 // import fsSource from 'src/Shaders/tpmsCircles.glsl?raw';
 import { useData } from '../state/state';
-import { getText } from './helpermethods';
+import { getColor, getText } from './helpermethods';
 import { Version0Type } from '../modelDefinition/types/version0.generatedType';
 import { Text } from '@react-three/drei';
 import { getFragmentShader } from './shaderConstructors/factory';
@@ -84,16 +84,15 @@ export const ThreeCanvas: React.FC<{
     >
       <Plane />
       <Text
-        // material={new ShaderMaterial({ vertexShader: vsSource, fragmentShader: getFragmentShader({ 'Main Methods': { s: { name: 'Text', value: 2 } } }) })}
         anchorX='center'
         anchorY='middle'
-        color='black'
+        color={new Color(...getColor((data as any).Material['Normal Material']['text']))}
         fillOpacity={0.7}
         textAlign='center'
         fontSize={FONT_SIZE}
         maxWidth={MAX_TEXT_WIDTH}
         children={text}
-        strokeColor={'white'}
+        strokeColor={new Color(...getColor((data as any).Material['Normal Material']['text stroke']))}
         fontWeight={500}
         strokeWidth={FONT_SIZE * 0.02}
       />
