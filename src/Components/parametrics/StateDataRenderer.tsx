@@ -1,11 +1,12 @@
 import React from 'react';
 import { ViewWrapper } from './ViewWrapper';
-import { DataEntry, EnumSemantics, StateDataType } from 'url-safe-bitpacking';
+import { DataEntry, DataType, EnumSemantics, StateDataType } from 'url-safe-bitpacking';
 import { DataEntryRenderer } from './dataentryrenderers/DataEntryRenderer';
 import { DerivativeStateDataRenderer } from './DerivativeStateDataRenderer';
 import { DerivativeStateDataType, IntDataEntry } from 'url-safe-bitpacking/dist/types';
 import { AttributeNames } from '../../modelDefinition/enums/attributeNames';
 import { ColorPicker } from './ColorPicker';
+import { IconRenderer } from './IconRenderer';
 
 export enum DisplayType {
   NESTED,
@@ -45,7 +46,19 @@ export const StateDataRenderer: React.FC<ISemtanticsRenderObjectProps> = ({
 }) => {
   // color state data renderer
   if (data.hasOwnProperty(AttributeNames.R) && data.hasOwnProperty(AttributeNames.G) && data.hasOwnProperty(AttributeNames.B) && Object.keys(data).length === 3)
-    return <ColorPicker v={data as any} updateEntry={updateEntry} />;
+    return (
+      <ViewWrapper
+        key={name}
+        disabled={disabled}
+        displayType={getDisplayType(name, displayTypeMap)}
+        name={name}
+        activeName={activeName}
+        setActiveName={setActiveName}
+      >
+        <IconRenderer name={name} type={DataType.FLOAT} size={20} />
+        <ColorPicker v={data as any} updateEntry={updateEntry} />
+      </ViewWrapper>
+    );
 
   return (
     <ViewWrapper
