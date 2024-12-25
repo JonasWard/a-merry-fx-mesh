@@ -33,6 +33,6 @@ export const getFragmentShader = (data: Version0Type): string => {
       break;
     default:
   }
-  console.log(shader);
+  if (import.meta.env.DEV) console.log(shader);
   return shader;
 };
