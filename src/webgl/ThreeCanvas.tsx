@@ -4,7 +4,7 @@ import { ShaderMaterial, Vector3 } from 'three';
 import vsSource from 'src/Shaders/tpmsVertexShader.glsl?raw';
 // import fsSource from 'src/Shaders/tpmsCircles.glsl?raw';
 import { useData } from '../state/state';
-import { getColor, getText } from './helpermethods';
+import { getText } from './helpermethods';
 import { Version0Type } from '../modelDefinition/types/version0.generatedType';
 import { Text } from '@react-three/drei';
 import { getFragmentShader } from './shaderConstructors/factory';
@@ -88,11 +88,14 @@ export const ThreeCanvas: React.FC<{
         anchorX='center'
         anchorY='middle'
         color='black'
-        fillOpacity={0.3}
+        fillOpacity={0.7}
         textAlign='center'
         fontSize={FONT_SIZE}
         maxWidth={MAX_TEXT_WIDTH}
         children={text}
+        strokeColor={'white'}
+        fontWeight={500}
+        strokeWidth={FONT_SIZE * 0.02}
       />
     </Canvas>
   );
