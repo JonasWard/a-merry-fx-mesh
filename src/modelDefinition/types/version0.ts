@@ -1,6 +1,15 @@
 import { DataEntryFactory } from 'url-safe-bitpacking';
 import { AttributeNames } from '../enums/attributeNames';
-import { ArrayEntryDataType, EnumEntryDataType, OptionalEntryDataType, SingleLevelContentType } from 'url-safe-bitpacking/dist/types';
+import { ArrayEntryDataType, EnumEntryDataType, SingleLevelContentType } from 'url-safe-bitpacking/dist/types';
+import { SDFMainMethodLabels } from './methodSemantics';
+
+const dotsMethodVersionStack: ArrayEntryDataType = [
+  [1, 3],
+  [
+    DataEntryFactory.createEnum(0, SDFMainMethodLabels.length - 1, AttributeNames.SDFMethod),
+    DataEntryFactory.createFloat(1, 0.001, 1000, 3, AttributeNames.MethodScale),
+  ],
+];
 
 const mainMethods: EnumEntryDataType = [
   0,
@@ -15,7 +24,12 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createFloat(0.0, -5, 5, 2, `centerOffsetMultiplier`),
     DataEntryFactory.createFloat(0.1, 0.1, 50, 1, `edgeThickness`),
   ],
-  [DataEntryFactory.createFloat(1, 0.0, 1000, 3, `${AttributeNames.MethodScale}`)],
+  [
+    DataEntryFactory.createInt(5, 1, 7, `count`),
+    DataEntryFactory.createFloat(10, 1, 500, 0, `maxGridSize`),
+    DataEntryFactory.createFloat(0.5, 0.05, 1, 2, `relativeDotSize`),
+    [AttributeNames.DotMethods, dotsMethodVersionStack],
+  ],
 ];
 
 const normalsMaterial: SingleLevelContentType[] = [

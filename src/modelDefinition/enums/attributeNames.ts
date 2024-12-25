@@ -94,4 +94,6 @@ export enum AttributeNames {
   Vertices = 'Vertices',
   Text = 'Text',
   TextInput = 'TextInput',
+  DotMethods = 'DotMethods',
+  SDFMethod = 'SDFMethod',
 }

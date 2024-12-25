@@ -21,5 +21,35 @@ export const shaderMethods = [
   ShaderNames.WarpedGrid,
 ];
 
-export const MainMethodLabels = shaderMethods.map((value, index) => ({ value: index, label: value }));
-export const enumSemantics = { [AttributeNames.MainMethods]: MainMethodLabels, [AttributeNames.Version]: [{ value: 0, label: VersionNames.Alpha }] };
+export enum MethodNames {
+  Gyroid = 'Gyroid',
+  SchwarzD = 'SchwarzD',
+  SchwarzP = 'SchwarzP',
+  Perlin = 'Perlin',
+  Neovius = 'Neovius',
+  Mandelbrot = 'Mandelbrot',
+  Sin = 'Sine',
+  Cos = 'Cosine',
+  Complex = 'Complex',
+  Modulus = 'Modulus',
+  AlternatingMoldus = 'AlternatingMoldus',
+  None = 'None',
+}
+
+export const mainMethods = [
+  MethodNames.Gyroid,
+  MethodNames.SchwarzD,
+  MethodNames.SchwarzP,
+  MethodNames.Perlin,
+  MethodNames.Neovius,
+  MethodNames.Mandelbrot,
+  MethodNames.Sin,
+];
+
+export const PointsMainMethodLabels = shaderMethods.map((value, index) => ({ value: index, label: value }));
+export const SDFMainMethodLabels = mainMethods.map((value, index) => ({ value: index, label: value }));
+export const enumSemantics = {
+  [AttributeNames.MainMethods]: PointsMainMethodLabels,
+  [AttributeNames.SDFMethod]: SDFMainMethodLabels,
+  [AttributeNames.Version]: [{ value: 0, label: VersionNames.Alpha }],
+};

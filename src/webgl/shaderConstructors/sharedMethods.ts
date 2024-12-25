@@ -22,9 +22,9 @@ vec3 COLORS[${colorData[AttributeNames.ColorCount].s.value}] = vec3[](${colorArr
 
 const mainMethodName: string[] = ['sdGyroid', 'sdSchwarzD', 'sdSchwarzP', 'sdPerlin', 'sdNeovius', 'sdMandelbrot'];
 
-const getMainMethod = (data: any) => {
+export const getMainMethod = (data: any) => {
   const recursiveMethod = (vs: any[]): string =>
-    `${mainMethodName[vs[0][AttributeNames.MethodEnumMain].value]}(p, ${vs.length > 1 ? `${recursiveMethod(vs.slice(1))} *` : ''}${vs[0][
+    `${mainMethodName[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${recursiveMethod(vs.slice(1))} *` : ''}${vs[0][
       AttributeNames.MethodScale
     ].value.toFixed(3)})`;
 
@@ -100,24 +100,24 @@ float getDistance(vec3 p) {
 }`;
 };
 
-// export const getFragmentShader = (data: any) => {
-//   return `varying vec3 uvV;
-// ${tpmsMethods}
-// ${preMethods}
-// ${handleColors(data)}
+export const getFragmentShader = (data: any) => {
+  return `varying vec3 uvV;
+${tpmsMethods}
+${preMethods}
+${handleColors(data)}
 
-// // ${tpmsColors}
+// ${tpmsColors}
 
-// ${getDistanceMethod(data)}
+${getDistanceMethod(data)}
 
-// void main() {
-//   // "Normalizing" with an arbitrary value
-//   float d = getDistance(uvV);
-//   vec3 color = getColorForDistance(d);
+void main() {
+  // "Normalizing" with an arbitrary value
+  float d = getDistance(uvV);
+  vec3 color = getColorForDistance(d);
 
-//   gl_FragColor = vec4(color,1.0);
-// }`;
-// };
+  gl_FragColor = vec4(color,1.0);
+}`;
+};
 
 // cyrb53 (c) 2018 bryc (github.com/bryc). License: Public domain. Attribution appreciated.
 // A fast and simple 64-bit (or 53-bit) string hash function with decent collision resistance.

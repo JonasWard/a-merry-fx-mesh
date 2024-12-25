@@ -8,7 +8,7 @@ import { MdGrid4X4, MdOutlineFitScreen } from 'react-icons/md';
 import { DataType } from 'url-safe-bitpacking';
 import { AttributeNames } from 'src/modelDefinition/enums/attributeNames';
 import { VersionNames } from 'src/modelDefinition/enums/versionNames';
-import { ShaderNames } from 'src/modelDefinition/types/methodSemantics';
+import { MethodNames, ShaderNames } from 'src/modelDefinition/types/methodSemantics';
 import { AiOutlineBgColors } from 'react-icons/ai';
 import { HiOutlineColorSwatch } from 'react-icons/hi';
 import { BsGrid3X3, BsGrid3X3Gap, BsNoiseReduction, BsSoundwave } from 'react-icons/bs';
@@ -17,6 +17,19 @@ import { GrPaint } from 'react-icons/gr';
 import { VscDatabase } from 'react-icons/vsc';
 import { LuWaves } from 'react-icons/lu';
 import { IoCubeOutline } from 'react-icons/io5';
+
+import imagegyroid from 'src/assets/icons/gyroid.png';
+import imagemandelbrot from 'src/assets/icons/mandelbrot.png';
+import imageneovius from 'src/assets/icons/neovius.png';
+import imageperlin from 'src/assets/icons/perlin.png';
+import imageschwarzD from 'src/assets/icons/schwarzD.png';
+import imageschwarzP from 'src/assets/icons/schwarzP.png';
+import imageSine from 'src/assets/icons/sine.png';
+import imageCosine from 'src/assets/icons/cosine.png';
+import imageNone from 'src/assets/icons/none.png';
+import imageAlternateTiling from 'src/assets/icons/modAlternateTiling.png';
+import imageeComplexTiling from 'src/assets/icons/modeComplexTiling.png';
+import imageTiling from 'src/assets/icons/modTiling.png';
 
 export interface IconRendererProps {
   name: string;
@@ -144,6 +157,30 @@ export const getIconForKey = (
       return { mainIcon: <IoCubeOutline size={size} /> };
     case AttributeNames.Text:
       return { mainIcon: <CiTextAlignCenter size={size} /> };
+    case MethodNames.Gyroid:
+      return { mainIcon: <img src={imagegyroid} width={size} /> };
+    case MethodNames.SchwarzD:
+      return { mainIcon: <img src={imageschwarzD} width={size} /> };
+    case MethodNames.SchwarzP:
+      return { mainIcon: <img src={imageschwarzP} width={size} /> };
+    case MethodNames.Perlin:
+      return { mainIcon: <img src={imageperlin} width={size} /> };
+    case MethodNames.Neovius:
+      return { mainIcon: <img src={imageneovius} width={size} /> };
+    case MethodNames.Mandelbrot:
+      return { mainIcon: <img src={imagemandelbrot} width={size} /> };
+    case MethodNames.Complex:
+      return { mainIcon: <img src={imageeComplexTiling} width={size} /> };
+    case MethodNames.Modulus:
+      return { mainIcon: <img src={imageTiling} width={size} /> };
+    case MethodNames.AlternatingMoldus:
+      return { mainIcon: <img src={imageAlternateTiling} width={size} /> };
+    case MethodNames.Sin:
+      return { mainIcon: <img src={imageSine} width={size} /> };
+    case MethodNames.Cos:
+      return { mainIcon: <img src={imageCosine} width={size} /> };
+    case MethodNames.None:
+      return { mainIcon: <img src={imageNone} width={size} /> };
     default:
       return { mainIcon: name };
   }
