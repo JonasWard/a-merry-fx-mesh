@@ -6,7 +6,7 @@ import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw'
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
 
 const getMinGridSize = (data: Version0Type): number => {
-  switch ((data['Main Methods'].v as any).count.value as number) {
+  switch ((data['Main Methods'].v as any).iterationCount.value as number) {
     case 1:
       return (data['Main Methods'].v as any).maxGridSize.value;
     case 2:
@@ -23,60 +23,84 @@ const getMinGridSize = (data: Version0Type): number => {
 };
 
 const getDotsArrays = (data: Version0Type): string => {
-  const count = (data['Main Methods'].v as any).count.value as number;
-  const divCount = count + 1;
-  switch (count) {
+  const iterationCount = (data['Main Methods'].v as any).iterationCount.value as number;
+  const diviterationCount = iterationCount + 1;
+  switch (iterationCount) {
     case 1:
-      return `const float count = 1.0;
+      return `const float iterationCount = 1.0;
 const float row0[1] = float[](0.5);`;
     case 2:
     case 3:
-      return `const float count = 2.0;
-const float row0[2] = float[](${(1 / divCount).toFixed(4)}, ${(3 / divCount).toFixed(4)});
-const float row1[2] = float[](${(3 / divCount).toFixed(4)}, ${(2 / divCount).toFixed(4)});`;
+      return `const float iterationCount = 2.0;
+const float row0[2] = float[](${(1 / diviterationCount).toFixed(4)}, ${(3 / diviterationCount).toFixed(4)});
+const float row1[2] = float[](${(3 / diviterationCount).toFixed(4)}, ${(2 / diviterationCount).toFixed(4)});`;
     case 4:
     case 5:
-      return `const float count = 4.0;
-const float row0[4] = float[](${(1 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(3 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)});
-const float row1[4] = float[](${(5 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)});
-const float row2[4] = float[](${(3 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(2 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)});
-const float row3[4] = float[](${(5 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)});
+      return `const float iterationCount = 4.0;
+const float row0[4] = float[](${(1 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(3 / diviterationCount).toFixed(4)}, ${(
+        5 / diviterationCount
+      ).toFixed(4)});
+const float row1[4] = float[](${(5 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        4 / diviterationCount
+      ).toFixed(4)});
+const float row2[4] = float[](${(3 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(2 / diviterationCount).toFixed(4)}, ${(
+        5 / diviterationCount
+      ).toFixed(4)});
+const float row3[4] = float[](${(5 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        4 / diviterationCount
+      ).toFixed(4)});
 `;
     case 6:
     case 7:
     default:
-      return `const float count = 8.0;
-const float row0[8] = float[](${(1 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(
-        3 / divCount
-      ).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)});
-const float row1[8] = float[](${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(
-        7 / divCount
-      ).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)});
-const float row2[8] = float[](${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(
-        5 / divCount
-      ).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)});
-const float row3[8] = float[](${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(
-        7 / divCount
-      ).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)});
-const float row4[8] = float[](${(3 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(
-        2 / divCount
-      ).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)});
-const float row5[8] = float[](${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(
-        7 / divCount
-      ).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)});
-const float row6[8] = float[](${(5 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(
-        5 / divCount
-      ).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(4 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)});
-const float row7[8] = float[](${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(
-        7 / divCount
-      ).toFixed(4)}, ${(6 / divCount).toFixed(4)}, ${(7 / divCount).toFixed(4)}, ${(6 / divCount).toFixed(4)});
+      return `const float iterationCount = 8.0;
+const float row0[8] = float[](${(1 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)}, ${(3 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)});
+const float row1[8] = float[](${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)});
+const float row2[8] = float[](${(5 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)});
+const float row3[8] = float[](${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)});
+const float row4[8] = float[](${(3 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)}, ${(2 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)});
+const float row5[8] = float[](${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)});
+const float row6[8] = float[](${(5 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)}, ${(5 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(4 / diviterationCount).toFixed(4)}, ${(
+        7 / diviterationCount
+      ).toFixed(4)});
+const float row7[8] = float[](${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(6 / diviterationCount).toFixed(4)}, ${(7 / diviterationCount).toFixed(4)}, ${(
+        6 / diviterationCount
+      ).toFixed(4)});
 `;
   }
 };
 
 const getIndexTresholdMethod = (data: Version0Type): string => {
   let content = '';
-  switch ((data['Main Methods'].v as any).count.value as number) {
+  switch ((data['Main Methods'].v as any).iterationCount.value as number) {
     case 1:
       content = `return row0[0] < d;`;
       break;
@@ -146,6 +170,9 @@ export const getDotsFragmentShader = (data: Version0Type): string => {
 const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
 const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );
 
+const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(3)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(3)}, ${(
+    data['Main Methods'].v as any
+  ).zOffset.value.toFixed(3)});
 ${sharedMethods}
 
 const float minGridSize = ${minGridSize.toFixed(2)};
@@ -156,15 +183,19 @@ ${sdfMethod}
 ${getDotsArrays(data)}
 ${getIndexTresholdMethod(data)}
 
-float getGridIndex(vec3 p) {
-  float timedGridSize = minGridSize * (1.0 + .5 * sin(uTime * .5));
-  float timedDotRadius = dotRadius * (1.0 + .25 * sin(uTime * 1.0));
-  vec2 idx = floor(p.xy / timedGridSize);
-  vec2 center = (idx + vec2(.5)) * timedGridSize;
-  float d = getMainDistance(vec3((idx + vec2(.5)) * timedGridSize, 0.5));
+float getGridIndex(vec3 p) {  
+  vec2 idx = floor(p.xy / minGridSize);
+  vec2 center = (idx + vec2(.5)) * minGridSize;
 
-  if (isDot(mod(idx, count), d)) {
-    return sdCircle(vec3(center, dotRadius), p.xy) * .5;
+  float scaledRadius = ${
+    (data['Main Methods'].v as any).twinkleRate.value === 0
+      ? '1.0'
+      : `(0.5 + .5 * sdPerlin(vec3(center, uTime * ${(1 / (data['Main Methods'].v as any).twinkleRate.value).toFixed(5)}), 997.0))`
+  } * dotRadius;
+  float d = getMainDistance(vec3((idx + vec2(.5)) * minGridSize, 0.0) + offset);
+
+  if (isDot(mod(idx, iterationCount), d)) {
+    return sdCircle(vec3(center, scaledRadius), p.xy) * .5;
   } else {
     return 1.0;
   }

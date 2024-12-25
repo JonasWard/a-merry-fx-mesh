@@ -25,9 +25,13 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createFloat(0.1, 0.1, 50, 1, `edgeThickness`),
   ],
   [
-    DataEntryFactory.createInt(5, 1, 7, `count`),
-    DataEntryFactory.createFloat(10, 1, 500, 0, `maxGridSize`),
-    DataEntryFactory.createFloat(0.5, 0.05, 1, 2, `relativeDotSize`),
+    DataEntryFactory.createInt(5, 1, 7, `iterationCount`),
+    DataEntryFactory.createFloat(50, 1, 500, 0, `maxGridSize`),
+    DataEntryFactory.createFloat(0.6, 0.05, 1, 2, `relativeDotSize`),
+    DataEntryFactory.createFloat(1000, 0, 10000, 0, `twinkleRate`),
+    DataEntryFactory.createFloat(0.0, -100, 100, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -100, 100, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -100, 100, 1, `zOffset`),
     [AttributeNames.DotMethods, dotsMethodVersionStack],
   ],
 ];
