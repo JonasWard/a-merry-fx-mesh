@@ -1,6 +1,7 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
 import { getColor } from '../helpermethods';
 import { getCircleFragmentShader } from './circle';
+import { getDotsFragmentShader } from './dots';
 
 const simpleUVShader = `
 varying vec3 uvV;
@@ -10,9 +11,10 @@ void main() {
 }`;
 
 export const getFragmentShader = (data: Version0Type): string => {
+  let shader = simpleUVShader;
   switch (data['Main Methods'].s.value) {
     case 0: // circle
-      return getCircleFragmentShader(
+      shader = getCircleFragmentShader(
         (data['Main Methods'].v as any).count.value,
         (data['Main Methods'].v as any).minSize.value,
         (data['Main Methods'].v as any).maxSize.value,
@@ -25,7 +27,12 @@ export const getFragmentShader = (data: Version0Type): string => {
         (data['Main Methods'].v as any).centerOffsetMultiplier.value,
         (data['Main Methods'].v as any).edgeThickness.value
       );
+      break;
+    case 1: // dots
+      shader = getDotsFragmentShader(data);
+      break;
     default:
-      return simpleUVShader;
   }
+  console.log(shader);
+  return shader;
 };
