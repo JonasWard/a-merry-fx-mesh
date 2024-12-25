@@ -122,8 +122,7 @@ float cnoise(vec3 P){
 }
 
 float sdPerlin(vec3 p, float scale) {
-  p *= scale;
-  float d = cnoise(p);
+  float d = cnoise(p * scale);
   return d;
 }
 
