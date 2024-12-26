@@ -52,16 +52,16 @@ export const getDreiEckFragmentShader = (data: Version0Type): string => {
   const yAxis = getYAxis(data);
 
   return `
-const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
-const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );
-const vec2 grid = vec2(${gridSpacing[0].toFixed(3)}, ${gridSpacing[1].toFixed(3)});
-const vec2 xAxis = vec2(${xAxis[0].toFixed(3)}, ${xAxis[1].toFixed(3)});
-const vec2 yAxis = vec2(${yAxis[0].toFixed(3)}, ${yAxis[1].toFixed(3)});
+const vec3 color0 = vec3( ${color0[0].toFixed(4)}, ${color0[1].toFixed(4)}, ${color0[2].toFixed(4)} );
+const vec3 color1 = vec3( ${color1[0].toFixed(4)}, ${color1[1].toFixed(4)}, ${color1[2].toFixed(4)} );
+const vec2 grid = vec2(${gridSpacing[0].toFixed(4)}, ${gridSpacing[1].toFixed(4)});
+const vec2 xAxis = vec2(${xAxis[0].toFixed(4)}, ${xAxis[1].toFixed(4)});
+const vec2 yAxis = vec2(${yAxis[0].toFixed(4)}, ${yAxis[1].toFixed(4)});
 const float warpMagnitude = ${(data['Main Methods'].v as any).warpMagnitude.value.toFixed(1)};
 const bool alternatingTriangles = ${(data['Main Methods'].v as any).alternating.value};
-const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(3)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(3)}, ${(
+const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(4)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(4)}, ${(
     data['Main Methods'].v as any
-  ).zOffset.value.toFixed(3)});
+  ).zOffset.value.toFixed(4)});
 
 ${tpmsMethodDefinitions}
 ${sdfMethod}
@@ -73,7 +73,7 @@ vec2 getBaseCoordinate(vec2 index) {
 
 vec3 getNormal(vec3 p)
 {
-    const float h = 0.0001; // replace by an appropriate value
+    const float h = 0.001; // replace by an appropriate value
     const vec2 k = vec2(1,-1);
     return normalize( k.xyy * getMainDistance( p + k.xyy * h ) + 
                       k.yyx * getMainDistance( p + k.yyx * h ) + 
@@ -99,9 +99,6 @@ vec2[4] getCornersForIndex(vec2 index) {
 vec2 getIndex(vec2 p) {
   float x = p.x / grid.x;
   float y = p.y / grid.y;
-  if (alternatingTriangles)  {
-    x -= y * .5;
-  }
   return vec2(floor(x), floor(y));
 }
 
@@ -158,6 +155,26 @@ vec2 getDistanceCorrectedIndex(vec2 p) {
     return index;
   }
   index += deltaIndex;
+  deltaIndex = getIterativeCorrectedIndex(p, index);
+  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
+    return index;
+  }
+  index += deltaIndex;
+  deltaIndex = getIterativeCorrectedIndex(p, index);
+  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
+    return index;
+  }
+  index += deltaIndex;
+  deltaIndex = getIterativeCorrectedIndex(p, index);
+  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
+    return index;
+  }
+  index += deltaIndex;
+  deltaIndex = getIterativeCorrectedIndex(p, index);
+  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
+    return index;
+  }
+  index += deltaIndex;
   return index + getIterativeCorrectedIndex(p, index);
 }
 
@@ -170,12 +187,12 @@ float sdMethod(vec2 p) {
   vec2[4] cs = getCornersForIndex(index);
 
   if (!alternatingTriangles) {
-    vec2 vTriangleTop = (cs[0] + cs[1]) * .5;
+    vec2 vTriangleTop = (cs[0] + cs[3]) * .5;
 
-    float d0 = sdLineSigned(cs[3], cs[2] - cs[3], p);
-    float d1 = sdLineSigned(cs[2], vTriangleTop - cs[2], p);
-    float d2 = sdLineSigned(vTriangleTop, cs[3] - vTriangleTop, p);
-    float d3 = -sdLineSigned(cs[1], cs[0] - cs[1], p);
+    float d0 = -sdLineSigned(cs[2], vTriangleTop - cs[2], p);
+    float d1 = -sdLineSigned(vTriangleTop, cs[1] - vTriangleTop, p);
+    float d2 = -sdLineSigned(cs[1], cs[2] - cs[1], p);
+    float d3 = sdLineSigned(cs[3], cs[0] - cs[3], p);
 
     return max(min(min(d0, d1), d2), d3);
   } else {
