@@ -57,7 +57,7 @@ export const App: React.FC = () => {
       <Button style={{ position: 'fixed', top: '15px', right: '15px' }} onClick={downloadPNG}>
         <LiaFileDownloadSolid style={{ position: 'absolute', width: 20, height: 20 }} size={16} />
       </Button>
-      {localStorage.getItem('iAmJonas') === 'true' ? <ParametricInput versionEnumSemantics={enumSemantics} /> : null}
+      <ParametricInput versionEnumSemantics={enumSemantics} />
     </>
   );
 };
