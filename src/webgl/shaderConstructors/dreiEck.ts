@@ -20,16 +20,16 @@ const getYAxis = (data: Version0Type): [number, number] => [
 const getWarpDirection = (data: Version0Type): string => {
   switch ((data['Main Methods'].v as any).warpDirection.value) {
     case 0:
-      return 'return v;';
+      return 'return v + oR;';
     case 1:
-      return `vec3 v3 = vec3(v, 0.0) + offset;
+      return `vec3 v3 = vec3(v, 0.0) + offset + oR;
   return v + vec2(getNormal(v3).x, 0.0) * warpMagnitude * getMainDistance(v3);`;
     case 2:
-      return `vec3 v3 = vec3(v, 0.0) + offset;
+      return `vec3 v3 = vec3(v, 0.0) + offset + oR;
   return v + vec2(0.0, getNormal(v3).y) * warpMagnitude * getMainDistance(v3);`;
     case 3:
     default:
-      return `vec3 v3 = vec3(v, 0.0) + offset;
+      return `vec3 v3 = vec3(v, 0.0) + offset + oR;
   return v + getNormal(v3).xy * warpMagnitude * getMainDistance(v3);`;
   }
 };
@@ -62,6 +62,8 @@ const bool alternatingTriangles = ${(data['Main Methods'].v as any).alternating.
 const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(4)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(4)}, ${(
     data['Main Methods'].v as any
   ).zOffset.value.toFixed(4)});
+const float uTimeMultiplier = .1;
+const float uR = 500.0;
 
 ${tpmsMethodDefinitions}
 ${sdfMethod}
@@ -82,6 +84,7 @@ vec3 getNormal(vec3 p)
 }
 
 vec2 getLocationForBaseVector(vec2 v) {
+  vec3 oR = vec3(cos(uTime * uTimeMultiplier) * uR, sin(uTime * uTimeMultiplier) * uR, 0.0);
   ${getWarpDirection(data)}
 }
 
