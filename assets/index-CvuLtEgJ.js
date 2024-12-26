@@ -4829,9 +4829,9 @@ float sdMethod(vec2 p) {
 void main() {
   float d = sdMethod(uvV.xy);
   gl_FragColor = vec4(getColor(d), 1.0);
-}`},kue=t=>[t["Main Methods"].v.xSpacing.value,t["Main Methods"].v.ySpacing.value],zue=t=>[t["Main Methods"].v.xSpacing.value,0],Hue=t=>[t["Main Methods"].v.alternating.value?-.5*t["Main Methods"].v.xSpacing.value:0,t["Main Methods"].v.ySpacing.value],Vue=t=>{switch(t["Main Methods"].v.warpDirection.value){case 0:return"return v;";case 1:return`vec3 v3 = vec3(v, 0.0) + offset;
-  return v + vec2(getNormal(v3).x, 0.0) * warpMagnitude * getMainDistance(v3);`;case 2:return`vec3 v3 = vec3(v, 0.0) + offset;
-  return v + vec2(0.0, getNormal(v3).y) * warpMagnitude * getMainDistance(v3);`;case 3:default:return`vec3 v3 = vec3(v, 0.0) + offset;
+}`},kue=t=>[t["Main Methods"].v.xSpacing.value,t["Main Methods"].v.ySpacing.value],zue=t=>[t["Main Methods"].v.xSpacing.value,0],Hue=t=>[t["Main Methods"].v.alternating.value?-.5*t["Main Methods"].v.xSpacing.value:0,t["Main Methods"].v.ySpacing.value],Vue=t=>{switch(t["Main Methods"].v.warpDirection.value){case 0:return"return v + oR;";case 1:return`vec3 v3 = vec3(v, 0.0) + offset + oR;
+  return v + vec2(getNormal(v3).x, 0.0) * warpMagnitude * getMainDistance(v3);`;case 2:return`vec3 v3 = vec3(v, 0.0) + offset + oR;
+  return v + vec2(0.0, getNormal(v3).y) * warpMagnitude * getMainDistance(v3);`;case 3:default:return`vec3 v3 = vec3(v, 0.0) + offset + oR;
   return v + getNormal(v3).xy * warpMagnitude * getMainDistance(v3);`}},$ue=t=>{let e=t["Main Methods"].v.inverted.value?"1.0 - ":"";return t["Main Methods"].v.filled.value?e+"(.5 + sdMethod(uvV.xy) * .5)":e+"(abs(sdMethod(uvV.xy)))"},Gue=t=>{const e=ak(t["Main Methods"].v[yt.DotMethods]),n=Dl(t.Material["Normal Material"]["color 0"]),r=Dl(t.Material["Normal Material"]["color 1"]),i=kue(t),o=zue(t),a=Hue(t);return`
 const vec3 color0 = vec3( ${n[0].toFixed(4)}, ${n[1].toFixed(4)}, ${n[2].toFixed(4)} );
 const vec3 color1 = vec3( ${r[0].toFixed(4)}, ${r[1].toFixed(4)}, ${r[2].toFixed(4)} );
@@ -4841,6 +4841,8 @@ const vec2 yAxis = vec2(${a[0].toFixed(4)}, ${a[1].toFixed(4)});
 const float warpMagnitude = ${t["Main Methods"].v.warpMagnitude.value.toFixed(1)};
 const bool alternatingTriangles = ${t["Main Methods"].v.alternating.value};
 const vec3 offset = vec3(${t["Main Methods"].v.xOffset.value.toFixed(4)}, ${t["Main Methods"].v.yOffset.value.toFixed(4)}, ${t["Main Methods"].v.zOffset.value.toFixed(4)});
+const float uTimeMultiplier = .1;
+const float uR = 500.0;
 
 ${uk}
 ${e}
@@ -4861,6 +4863,7 @@ vec3 getNormal(vec3 p)
 }
 
 vec2 getLocationForBaseVector(vec2 v) {
+  vec3 oR = vec3(cos(uTime * uTimeMultiplier) * uR, sin(uTime * uTimeMultiplier) * uR, 0.0);
   ${Vue(t)}
 }
 
