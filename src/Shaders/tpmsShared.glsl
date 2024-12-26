@@ -25,6 +25,12 @@ float sdLine(vec2 a, vec2 d, vec2 p) {
 	return length(pa - h * d);
 }
 
+float sdLineSigned(vec2 a, vec2 d, vec2 p) {
+  vec2 pa = p - a;
+  vec2 n = normalize(vec2(-d.y, d.x));
+  return dot(n, pa);
+}
+
 float sdCircle(vec3 c, vec2 p) {
   return pDistance(c.xy, p) - c.z;
 }

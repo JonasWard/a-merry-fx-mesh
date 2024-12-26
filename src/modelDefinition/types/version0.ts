@@ -6,13 +6,14 @@ import { SDFMainMethodLabels } from './methodSemantics';
 const dotsMethodVersionStack: ArrayEntryDataType = [
   [1, 3],
   [
-    DataEntryFactory.createEnum(4, SDFMainMethodLabels.length - 1, AttributeNames.SDFMethod),
-    DataEntryFactory.createFloat(0.025, 0.001, 1000, 3, AttributeNames.MethodScale),
+    DataEntryFactory.createEnum(2, SDFMainMethodLabels.length - 1, AttributeNames.SDFMethod),
+    DataEntryFactory.createFloat(0.01, 0.001, 1000, 3, AttributeNames.MethodScale),
   ],
 ];
 
 const mainMethods: EnumEntryDataType = [
   0,
+  // circles
   [
     DataEntryFactory.createInt(100, 1, 100, `count`),
     DataEntryFactory.createFloat(10, 1, 500, 0, `minSize`),
@@ -24,14 +25,47 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createFloat(-0.5, -5, 5, 2, `centerOffsetMultiplier`),
     DataEntryFactory.createFloat(0.1, 0.1, 50, 1, `edgeThickness`),
   ],
+  // dots
   [
     DataEntryFactory.createInt(5, 1, 7, `iterationCount`),
     DataEntryFactory.createFloat(50, 1, 500, 0, `maxGridSize`),
     DataEntryFactory.createFloat(0.6, 0.05, 1, 2, `relativeDotSize`),
     DataEntryFactory.createFloat(1000, 0, 10000, 0, `twinkleRate`),
-    DataEntryFactory.createFloat(0.0, -100, 100, 1, `xOffset`),
-    DataEntryFactory.createFloat(0.0, -100, 100, 1, `yOffset`),
-    DataEntryFactory.createFloat(0.0, -100, 100, 1, `zOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.DotMethods, dotsMethodVersionStack],
+  ],
+  // line art
+  [],
+  // waves
+  [],
+  // moiree
+  [],
+  // Drei Eck
+  [
+    DataEntryFactory.createFloat(100, 10, 250, 1, 'xSpacing'),
+    DataEntryFactory.createFloat(100, 10, 250, 1, 'ySpacing'),
+    DataEntryFactory.createBoolean(true, 'alternating'),
+    DataEntryFactory.createBoolean(false, 'filled'),
+    DataEntryFactory.createBoolean(false, 'inverted'),
+    DataEntryFactory.createEnum(0, 3, 'warpDirection'),
+    DataEntryFactory.createFloat(20.0, 0.0, 100.0, 1, 'warpMagnitude'),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.DotMethods, dotsMethodVersionStack],
+  ],
+  // Warped Grid
+  [
+    DataEntryFactory.createInt(5, 2, 20, 'xCount'),
+    DataEntryFactory.createInt(5, 2, 20, 'yCount'),
+    DataEntryFactory.createBoolean(false, 'filled'),
+    DataEntryFactory.createBoolean(false, 'inverted'),
+    DataEntryFactory.createFloat(2.0, 0.1, 10, 1, 'edgeThickness'),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
     [AttributeNames.DotMethods, dotsMethodVersionStack],
   ],
 ];

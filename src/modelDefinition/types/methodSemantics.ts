@@ -1,3 +1,4 @@
+import { EnumSemantics } from 'url-safe-bitpacking';
 import { AttributeNames } from '../enums/attributeNames';
 import { VersionNames } from '../enums/versionNames';
 
@@ -46,10 +47,13 @@ export const mainMethods = [
   MethodNames.Sin,
 ];
 
+const warpDirections = ['none', 'x', 'y', 'xy'];
+
 export const PointsMainMethodLabels = shaderMethods.map((value, index) => ({ value: index, label: value }));
 export const SDFMainMethodLabels = mainMethods.map((value, index) => ({ value: index, label: value }));
-export const enumSemantics = {
+export const enumSemantics: EnumSemantics = {
   [AttributeNames.MainMethods]: PointsMainMethodLabels,
   [AttributeNames.SDFMethod]: SDFMainMethodLabels,
   [AttributeNames.Version]: [{ value: 0, label: VersionNames.Alpha }],
+  ['warpDirection']: warpDirections.map((label, value) => ({ value, label })),
 };

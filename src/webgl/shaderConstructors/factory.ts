@@ -2,6 +2,7 @@ import { Version0Type } from '../../modelDefinition/types/version0.generatedType
 import { getColor } from '../helpermethods';
 import { getCircleFragmentShader } from './circle';
 import { getDotsFragmentShader } from './dots';
+import { getDreiEckFragmentShader } from './dreiEck';
 
 const simpleUVShader = `
 varying vec3 uvV;
@@ -30,6 +31,9 @@ export const getFragmentShader = (data: Version0Type): string => {
       break;
     case 1: // dots
       shader = getDotsFragmentShader(data);
+      break;
+    case 5: // drei eck
+      shader = getDreiEckFragmentShader(data);
       break;
     default:
   }

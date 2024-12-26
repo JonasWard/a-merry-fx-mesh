@@ -83,7 +83,7 @@ export const ThreeCanvas: React.FC<{
       style={{ width: '100svw', height: '100svh' }}
     >
       <Plane />
-      <Text
+      {/* <Text
         anchorX='center'
         anchorY='middle'
         color={new Color(...getColor((data as any).Material['Normal Material']['text']))}
@@ -95,7 +95,7 @@ export const ThreeCanvas: React.FC<{
         strokeColor={new Color(...getColor((data as any).Material['Normal Material']['text stroke']))}
         fontWeight={500}
         strokeWidth={FONT_SIZE * 0.02}
-      />
+      /> */}
     </Canvas>
   );
 };

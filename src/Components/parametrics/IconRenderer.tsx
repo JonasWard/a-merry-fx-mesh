@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { CiLineHeight, CiTextAlignCenter } from 'react-icons/ci';
-import { FaKey, FaCog, FaRegCircle } from 'react-icons/fa';
+import { FaKey, FaCog, FaRegCircle, FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
 import { FaRegSquareFull } from 'react-icons/fa6';
 import { PiChurchDuotone, PiCirclesThree, PiCylinderThin, PiDotsNineLight, PiStackPlusFill, PiWaveSine } from 'react-icons/pi';
 import { GiFootprint, GiShardSword, GiWireframeGlobe } from 'react-icons/gi';
@@ -181,6 +181,14 @@ export const getIconForKey = (
       return { mainIcon: <img src={imageCosine} width={size} /> };
     case MethodNames.None:
       return { mainIcon: <img src={imageNone} width={size} /> };
+    case 'none':
+      return { mainIcon: <img src={imageNone} width={size} /> };
+    case 'x':
+      return { mainIcon: <FaArrowsAltH size={size} /> };
+    case 'y':
+      return { mainIcon: <FaArrowsAltV size={size} /> };
+    case 'xy':
+      return { mainIcon: <FaArrowsAlt size={size} /> };
     default:
       return { mainIcon: name };
   }

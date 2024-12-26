@@ -59,16 +59,6 @@ float sdMethod(vec2 p) {
   
   return d;
 }
-  
-vec3 normal(vec2 p)
-{
-    const float h = 0.0001; // replace by an appropriate value
-    const vec2 k = vec2(1,-1);
-    return normalize( k.xyy * sdMethod( p + k.xy * h ) + 
-                      k.yyx * sdMethod( p + k.yy * h ) + 
-                      k.yxy * sdMethod( p + k.yx * h ) + 
-                      k.xxx * sdMethod( p + k.xx * h ) );
-}
 
 void main() {
   float d = sdMethod(uvV.xy);
