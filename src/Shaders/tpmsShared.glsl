@@ -11,7 +11,7 @@ float atan2(in float y, in float x)
 }
 
 vec3 getColor(float d) {
-  return mix(color0, color1, min(max(d, 0.0), 1.0));
+  return mix(color0, color1, clamp(d, 0.0, 1.0));
 }
 
 float pDistance(vec2 p0, vec2 p1) {
