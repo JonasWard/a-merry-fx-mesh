@@ -9,7 +9,7 @@ import { Button, message } from 'antd';
 import { LiaFileDownloadSolid } from 'react-icons/lia';
 import { enumSemantics } from './modelDefinition/types/methodSemantics';
 
-const defaultState = 'AxgkEhkAAkWnCAH_y8qogIGTBSn-AACYO1e9w1PxFPZTFW1bFRO1LxiY1Z541O7w1LLxbC9w29ZbxFPbRxbC9xO9hxk81Xx1355LRe9wTRO1Y';
+const defaultState = 'Cl7k8tQgnEE4gnEBAAFagACFAAAIZSwfrMDwAAAH___5e40mDtXvcNT8RT2UxVtWxUTtS8YmNWeeNTu8NSy8WwvcNvWW8RT20cWwvcTvYcZPNV8dd-eS0XvcE0TtWA';
 
 export const App: React.FC = () => {
   const { stateString } = useParams();
