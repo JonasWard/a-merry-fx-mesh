@@ -20,13 +20,13 @@ export const PopoverWrapper: React.FC<IPopoverWrapperProps> = ({ open, toggleOpe
         onOpenChange={toggleOpen}
         trigger='click'
         color='#ffffffb0'
-        content={<div style={{ width: 'min(250px, calc(100vw - 96px))' }}>{children}</div>}
+        content={<div style={{ width: 'min(250px, calc(100vw - 96px))', maxHeight: '70svh', overflowY: 'auto', overflowX: 'hidden' }}>{children}</div>}
         title={
           <div
             style={{
               margin: '0px 0px 4px 0px',
               paddingBottom: '6px',
-              width: 'calc(min(250px, calc(100vw - 96px)) -16px)',
+              // width: 'calc(min(250px, calc(100vw - 96px)) -16px)',
               borderBottom: '1px solid black',
               display: 'flex',
               flexDirection: 'row',

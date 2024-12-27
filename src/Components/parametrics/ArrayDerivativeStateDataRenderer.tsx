@@ -67,7 +67,7 @@ export const ArrayDerivativeStateDataRenderer: React.FC<IArrayDerivativeStateDat
       <IntDataEntryRenderer displayStyle='dropdown' key={s.name} int={s} onChange={updateEntry} />
       {v.map((locV, i) => (
         <div key={i} style={{ display: 'flex', flexDirection: 'row', width: '100%', gap: 6, alignItems: 'center' }}>
-          <div style={{ width: canDelete ? '95%' : '100%' }}>
+          <div style={{ width: canDelete ? '91%' : '100%' }}>
             <StateDataRenderer
               asSlider={asSlider}
               key={`${s.name}-subdata`}
@@ -83,7 +83,7 @@ export const ArrayDerivativeStateDataRenderer: React.FC<IArrayDerivativeStateDat
             />
           </div>
           {canDelete ? (
-            <div style={{ width: '5%' }}>
+            <div style={{ width: '9%' }}>
               <FaTrash size={20} style={{ cursor: 'pointer' }} onClick={() => handleDelete(i)} />
             </div>
           ) : null}
