@@ -20,11 +20,11 @@ vec3 COLORS[${colorData[AttributeNames.ColorCount].s.value}] = vec3[](${colorArr
 `;
 };
 
-const mainMethodName: string[] = ['sdGyroid', 'sdSchwarzD', 'sdSchwarzP', 'sdPerlin', 'sdNeovius', 'sdMandelbrot'];
+export const SDFMethodNames: string[] = ['sdGyroid', 'sdSchwarzD', 'sdSchwarzP', 'sdPerlin', 'sdNeovius', 'sdMandelbrot'];
 
 export const getMainMethod = (data: any) => {
   const recursiveMethod = (vs: any[]): string =>
-    `${mainMethodName[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${recursiveMethod(vs.slice(1))} *` : ''}${vs[0][
+    `${SDFMethodNames[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${recursiveMethod(vs.slice(1))} *` : ''}${vs[0][
       AttributeNames.MethodScale
     ].value.toFixed(3)})`;
 
