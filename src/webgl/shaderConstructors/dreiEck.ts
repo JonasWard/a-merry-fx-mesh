@@ -107,7 +107,7 @@ const vec2 grid = vec2(${gridSpacing[0].toFixed(4)}, ${gridSpacing[1].toFixed(4)
 const vec2 xAxis = vec2(${xAxis[0].toFixed(4)}, ${xAxis[1].toFixed(4)});
 const vec2 yAxis = vec2(${yAxis[0].toFixed(4)}, ${yAxis[1].toFixed(4)});
 const bool alternatingTriangles = ${(data['Main Methods'].v as any).alternating.value};
-const float uTimeMultiplier = ${(data['Main Methods'].v as any).uTimeMultiplier.value.toFixed(1)};
+const float uTimeMultiplier = ${(data['Main Methods'].v as any).uTimeMultiplier.value.toFixed(3)};
 const float uR = ${(data['Main Methods'].v as any).uR.value.toFixed(1)};
 
 ${tpmsMethodDefinitions}
