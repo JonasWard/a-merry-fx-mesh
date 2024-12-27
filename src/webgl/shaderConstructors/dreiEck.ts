@@ -133,51 +133,15 @@ vec2 getDistanceCorrectedIndex(vec2 p) {
     return index;
   }
   index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
-  deltaIndex = getIterativeCorrectedIndex(p, index);
-  if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
-    return index;
-  }
-  index += deltaIndex;
+  ${[...new Array(12)]
+    .map(
+      () => `deltaIndex = getIterativeCorrectedIndex(p, index);
+    if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
+      return index;
+    }
+    index += deltaIndex;`
+    )
+    .join('\n')}
   return index + getIterativeCorrectedIndex(p, index);
 }
 
