@@ -1,9 +1,67 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
 import { getColor } from '../helpermethods';
 import { AttributeNames } from '../../modelDefinition/enums/attributeNames';
-import { getMainMethod } from './sharedMethods';
 import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw';
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
+import { SDFMethodNames } from './sharedMethods';
+
+const getWarpVectorMethod = (data: Version0Type) => {
+  let xMethod = '';
+  let yMethod = '';
+  let methodComposition = '';
+  let warpMagnitude =
+    (data['Main Methods'].v as any).Warp.s.value !== 3
+      ? `const float warpMagnitude = ${(data['Main Methods'].v as any).Warp.v.warpMagnitude.value.toFixed(1)};\n`
+      : '';
+  let offset =
+    (data['Main Methods'].v as any).Warp.s.value !== 3
+      ? `const vec3 offset = vec3(${(data['Main Methods'].v as any).Warp.v.xOffset.value.toFixed(4)}, ${(
+          data['Main Methods'].v as any
+        ).Warp.v.yOffset.value.toFixed(4)}, ${(data['Main Methods'].v as any).Warp.v.zOffset.value.toFixed(4)});\n`
+      : '';
+
+  switch ((data['Main Methods'].v as any).Warp.s.value) {
+    case 3:
+      methodComposition = 'return vec2(0.0, 0.0)';
+      break;
+    case 0:
+      xMethod = `float xSD(vec3 p) {
+  return ${getMethodRecursive((data['Main Methods'].v as any).Warp.v.X.v)};
+}\n`;
+      methodComposition = 'return vec2(xSD(p), 0.0) * warpMagnitude';
+      break;
+    case 1:
+      yMethod = `float ySD(vec3 p) {
+  return ${getMethodRecursive((data['Main Methods'].v as any).Warp.v.Y.v)};
+}\n`;
+      methodComposition = 'return vec2(0.0, ySD(p)) * warpMagnitude';
+      break;
+    case 2:
+      xMethod = `float xSD(vec3 p) {
+  return ${getMethodRecursive((data['Main Methods'].v as any).Warp.v.X.v)};
+}\n`;
+      yMethod = `float ySD(vec3 p) {
+  return ${getMethodRecursive((data['Main Methods'].v as any).Warp.v.Y.v)};
+}\n`;
+      methodComposition = 'return vec2(xSD(p), ySD(p)) * warpMagnitude';
+      break;
+  }
+
+  return `
+${warpMagnitude}${offset}
+
+${xMethod}
+            ${yMethod}
+
+vec2 getWarpVector(vec3 p) {
+  ${methodComposition};
+}`;
+};
+
+const getMethodRecursive = (vs: any[]): string =>
+  `${SDFMethodNames[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${getMethodRecursive(vs.slice(1))} *` : ''}${vs[0][
+    AttributeNames.MethodScale
+  ].value.toFixed(3)})`;
 
 const getGridSpacing = (data: Version0Type): [number, number] => [
   (data['Main Methods'].v as any).xSpacing.value,
@@ -18,19 +76,12 @@ const getYAxis = (data: Version0Type): [number, number] => [
 ];
 
 const getWarpDirection = (data: Version0Type): string => {
-  switch ((data['Main Methods'].v as any).warpDirection.value) {
-    case 0:
-      return 'return v + oR;';
-    case 1:
-      return `vec3 v3 = vec3(v, 0.0) + offset + oR;
-  return v + vec2(getNormal(v3).x, 0.0) * warpMagnitude * getMainDistance(v3);`;
-    case 2:
-      return `vec3 v3 = vec3(v, 0.0) + offset + oR;
-  return v + vec2(0.0, getNormal(v3).y) * warpMagnitude * getMainDistance(v3);`;
+  switch ((data['Main Methods'].v as any).Warp.s.value) {
     case 3:
+      return 'return v + oR.xy;';
     default:
       return `vec3 v3 = vec3(v, 0.0) + offset + oR;
-  return v + getNormal(v3).xy * warpMagnitude * getMainDistance(v3);`;
+  return v + getWarpVector(v3);`;
   }
 };
 
@@ -41,8 +92,6 @@ const getDistanceMapping = (data: Version0Type): string => {
 };
 
 export const getDreiEckFragmentShader = (data: Version0Type): string => {
-  const sdfMethod = getMainMethod((data['Main Methods'].v as any)[AttributeNames.DotMethods]);
-
   const color0 = getColor(data.Material['Normal Material']['color 0']);
   const color1 = getColor(data.Material['Normal Material']['color 1']);
 
@@ -57,31 +106,18 @@ const vec3 color1 = vec3( ${color1[0].toFixed(4)}, ${color1[1].toFixed(4)}, ${co
 const vec2 grid = vec2(${gridSpacing[0].toFixed(4)}, ${gridSpacing[1].toFixed(4)});
 const vec2 xAxis = vec2(${xAxis[0].toFixed(4)}, ${xAxis[1].toFixed(4)});
 const vec2 yAxis = vec2(${yAxis[0].toFixed(4)}, ${yAxis[1].toFixed(4)});
-const float warpMagnitude = ${(data['Main Methods'].v as any).warpMagnitude.value.toFixed(1)};
 const bool alternatingTriangles = ${(data['Main Methods'].v as any).alternating.value};
-const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(4)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(4)}, ${(
-    data['Main Methods'].v as any
-  ).zOffset.value.toFixed(4)});
-const float uTimeMultiplier = .1;
-const float uR = 500.0;
+const float uTimeMultiplier = ${(data['Main Methods'].v as any).uTimeMultiplier.value.toFixed(1)};
+const float uR = ${(data['Main Methods'].v as any).uR.value.toFixed(1)};
 
 ${tpmsMethodDefinitions}
-${sdfMethod}
 ${sharedMethods}
 
 vec2 getBaseCoordinate(vec2 index) {
   return xAxis * index.x + yAxis * index.y;
 }
 
-vec3 getNormal(vec3 p)
-{
-    const float h = 0.001; // replace by an appropriate value
-    const vec2 k = vec2(1,-1);
-    return normalize( k.xyy * getMainDistance( p + k.xyy * h ) + 
-                      k.yyx * getMainDistance( p + k.yyx * h ) + 
-                      k.yxy * getMainDistance( p + k.yxy * h ) + 
-                      k.xxx * getMainDistance( p + k.xxx * h ) );
-}
+${getWarpVectorMethod(data)}
 
 vec2 getLocationForBaseVector(vec2 v) {
   vec3 oR = vec3(cos(uTime * uTimeMultiplier) * uR, sin(uTime * uTimeMultiplier) * uR, 0.0);
