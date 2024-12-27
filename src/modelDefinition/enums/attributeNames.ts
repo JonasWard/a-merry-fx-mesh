@@ -78,7 +78,7 @@ export enum AttributeNames {
   Base = 'Base', // base
   Height = 'Height',
   Asbolute = 'Absolute',
-  Warp = 'Pre-Processing Warp', // shapeWarpPreProcessing
+  Warp = 'Warp',
   Twist = 'Shape Pre-Processing Twist', // shapeTwistPreProcessing
   ShapePreProcessing = 'Shape Pre Processing',
   ShapePostProcessing = 'Shape Post Processing',
