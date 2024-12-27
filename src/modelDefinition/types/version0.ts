@@ -11,6 +11,33 @@ const dotsMethodVersionStack: ArrayEntryDataType = [
   ],
 ];
 
+const dreiEckWarp: EnumEntryDataType = [
+  1,
+  [
+    DataEntryFactory.createFloat(20.0, 0.0, 100.0, 1, 'warpMagnitude'),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.X, dotsMethodVersionStack],
+  ],
+  [
+    DataEntryFactory.createFloat(20.0, 0.0, 100.0, 1, 'warpMagnitude'),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.Y, dotsMethodVersionStack],
+  ],
+  [
+    DataEntryFactory.createFloat(20.0, 0.0, 100.0, 1, 'warpMagnitude'),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.X, dotsMethodVersionStack],
+    [AttributeNames.Y, dotsMethodVersionStack],
+  ],
+  [],
+];
+
 const mainMethods: EnumEntryDataType = [
   0,
   // circles
@@ -49,12 +76,9 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createBoolean(true, 'alternating'),
     DataEntryFactory.createBoolean(false, 'filled'),
     DataEntryFactory.createBoolean(false, 'inverted'),
-    DataEntryFactory.createEnum(0, 3, 'warpDirection'),
-    DataEntryFactory.createFloat(20.0, 0.0, 100.0, 1, 'warpMagnitude'),
-    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
-    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
-    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
-    [AttributeNames.DotMethods, dotsMethodVersionStack],
+    [AttributeNames.Warp, dreiEckWarp],
+    DataEntryFactory.createFloat(0.1, 0.001, 1, 3, 'uTimeMultiplier'),
+    DataEntryFactory.createInt(500, 0, 1000, 'uR'),
   ],
   // Warped Grid
   [
