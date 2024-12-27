@@ -169,7 +169,7 @@ vec2 getDistanceCorrectedIndex(vec2 p) {
     return index;
   }
   index += deltaIndex;
-  ${[...new Array(12)]
+  ${[...new Array(50)]
     .map(
       () => `deltaIndex = getIterativeCorrectedIndex(p, index);
     if (deltaIndex.x == 0.0 && deltaIndex.y == 0.0) {
