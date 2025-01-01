@@ -3,6 +3,7 @@ import { AttributeNames } from '../../modelDefinition/enums/attributeNames';
 // import tpmsMethods from '../Shaders/tpmsMethodDefinitions.glsl?raw';
 // import tpmsColors from '../Shaders/tpmsColorMethod.glsl?raw';
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
+import { getColor } from '../helpermethods';
 
 const handleColors = (data: any) => {
   const colorData = data[AttributeNames.Shmuck];
@@ -145,3 +146,11 @@ const cyrb64 = (str: string, seed = 0) => {
  * @returns number[]
  */
 export const getNNumbersForSeed = (n: number, str: string) => [...new Array(n)].map((_, i) => cyrb64(`${str}-${i}`));
+
+export const getColorAsignment = (data: Version0Type): string => {
+  const color0 = getColor(data.Material['Normal Material']['color 0']);
+  const color1 = getColor(data.Material['Normal Material']['color 1']);
+
+  return `const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
+  const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );`;
+};

@@ -1,5 +1,4 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
-import { getColor } from '../helpermethods';
 import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw';
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
 import { getMethodRecursive, SDFMethodNames } from './sharedMethods';
@@ -86,17 +85,12 @@ const getDistanceMapping = (data: Version0Type): string => {
 };
 
 export const getDreiEckFragmentShader = (data: Version0Type): string => {
-  const color0 = getColor(data.Material['Normal Material']['color 0']);
-  const color1 = getColor(data.Material['Normal Material']['color 1']);
-
   // simple triangle grid
   const gridSpacing = getGridSpacing(data);
   const xAxis = getXAxis(data);
   const yAxis = getYAxis(data);
 
   return `
-const vec3 color0 = vec3( ${color0[0].toFixed(4)}, ${color0[1].toFixed(4)}, ${color0[2].toFixed(4)} );
-const vec3 color1 = vec3( ${color1[0].toFixed(4)}, ${color1[1].toFixed(4)}, ${color1[2].toFixed(4)} );
 const vec2 grid = vec2(${gridSpacing[0].toFixed(4)}, ${gridSpacing[1].toFixed(4)});
 const vec2 xAxis = vec2(${xAxis[0].toFixed(4)}, ${xAxis[1].toFixed(4)});
 const vec2 yAxis = vec2(${yAxis[0].toFixed(4)}, ${yAxis[1].toFixed(4)});

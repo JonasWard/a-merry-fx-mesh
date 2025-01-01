@@ -1,5 +1,4 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
-import { getColor } from '../helpermethods';
 import { getMethodRecursive } from './sharedMethods';
 import { AttributeNames } from '../../modelDefinition/enums/attributeNames';
 
@@ -8,12 +7,7 @@ import warpedGridMethods from '../../Shaders/tpmsWarpedGrid.glsl?raw';
 import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw';
 
 export const getWarpedGridFragmentShader = (data: Version0Type): string => {
-  const color0 = getColor(data.Material['Normal Material']['color 0']);
-  const color1 = getColor(data.Material['Normal Material']['color 1']);
-
   return `
-const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
-const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );
 const vec3 offset = vec3(${(data['Main Methods'].v as any).xOffset.value.toFixed(4)}, ${(data['Main Methods'].v as any).yOffset.value.toFixed(4)}, ${(
     data['Main Methods'].v as any
   ).zOffset.value.toFixed(4)});

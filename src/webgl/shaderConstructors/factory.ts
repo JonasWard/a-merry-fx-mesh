@@ -3,6 +3,7 @@ import { getColor } from '../helpermethods';
 import { getCircleFragmentShader } from './circle';
 import { getDotsFragmentShader } from './dots';
 import { getDreiEckFragmentShader } from './dreiEck';
+import { getColorAsignment } from './sharedMethods';
 import { getWarpedGridFragmentShader } from './warpedGrid';
 
 const simpleUVShader = `
@@ -46,5 +47,7 @@ export const getFragmentShader = (data: Version0Type): string => {
     console.warn(e);
   }
   if (import.meta.env.DEV) console.log(shader);
-  return shader;
+  return `
+  ${getColorAsignment(data)}
+  ${shader}`;
 };
