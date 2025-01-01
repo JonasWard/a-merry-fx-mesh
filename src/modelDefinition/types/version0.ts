@@ -82,14 +82,16 @@ const mainMethods: EnumEntryDataType = [
   ],
   // Warped Grid
   [
-    DataEntryFactory.createInt(5, 2, 20, 'xCount'),
-    DataEntryFactory.createInt(5, 2, 20, 'yCount'),
-    DataEntryFactory.createBoolean(false, 'filled'),
+    DataEntryFactory.createBoolean(true, 'internalDistance'),
     DataEntryFactory.createBoolean(false, 'inverted'),
-    DataEntryFactory.createFloat(2.0, 0.1, 10, 1, 'edgeThickness'),
+    DataEntryFactory.createBoolean(true, 'euclidic'),
+    DataEntryFactory.createFloat(0.25, 0, 1.0, 3, 'edgeShift'),
+    DataEntryFactory.createFloat(0.75, 0.01, 1, 2, 'edgeThickness'),
     DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
     DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
     DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    DataEntryFactory.createFloat(0.1, 0.001, 1, 3, 'uTimeMultiplier'),
+    DataEntryFactory.createFloat(20.0, -100, 100, 1, `uZShift`),
     [AttributeNames.DotMethods, dotsMethodVersionStack],
   ],
 ];

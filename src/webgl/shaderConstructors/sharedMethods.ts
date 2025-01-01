@@ -22,16 +22,14 @@ vec3 COLORS[${colorData[AttributeNames.ColorCount].s.value}] = vec3[](${colorArr
 
 export const SDFMethodNames: string[] = ['sdGyroid', 'sdSchwarzD', 'sdSchwarzP', 'sdPerlin', 'sdNeovius', 'sdMandelbrot'];
 
-export const getMainMethod = (data: any) => {
-  const recursiveMethod = (vs: any[]): string =>
-    `${SDFMethodNames[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${recursiveMethod(vs.slice(1))} *` : ''}${vs[0][
-      AttributeNames.MethodScale
-    ].value.toFixed(3)})`;
+export const getMethodRecursive = (vs: any[]): string =>
+  `${SDFMethodNames[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${getMethodRecursive(vs.slice(1))} *` : ''}${vs[0][
+    AttributeNames.MethodScale
+  ].value.toFixed(3)})`;
 
-  return `float getMainDistance(vec3 p) {
-  return ${recursiveMethod(data.v)};
+export const getMainMethod = (data: any) => `float getMainDistance(vec3 p) {
+  return ${getMethodRecursive(data.v)};
 }`;
-};
 
 const postProcessingMethod: string[] = ['sin', 'cos'];
 

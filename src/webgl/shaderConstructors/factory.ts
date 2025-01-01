@@ -3,6 +3,7 @@ import { getColor } from '../helpermethods';
 import { getCircleFragmentShader } from './circle';
 import { getDotsFragmentShader } from './dots';
 import { getDreiEckFragmentShader } from './dreiEck';
+import { getWarpedGridFragmentShader } from './warpedGrid';
 
 const simpleUVShader = `
 varying vec3 uvV;
@@ -36,6 +37,8 @@ export const getFragmentShader = (data: Version0Type): string => {
       case 5: // drei eck
         shader = getDreiEckFragmentShader(data);
         break;
+      case 6: // warped grid
+        shader = getWarpedGridFragmentShader(data);
       default:
     }
   } catch (e) {

@@ -1,9 +1,8 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
 import { getColor } from '../helpermethods';
-import { AttributeNames } from '../../modelDefinition/enums/attributeNames';
 import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw';
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
-import { SDFMethodNames } from './sharedMethods';
+import { getMethodRecursive, SDFMethodNames } from './sharedMethods';
 
 const getWarpVectorMethod = (data: Version0Type) => {
   let xMethod = '';
@@ -57,11 +56,6 @@ vec2 getWarpVector(vec3 p) {
   ${methodComposition};
 }`;
 };
-
-const getMethodRecursive = (vs: any[]): string =>
-  `${SDFMethodNames[vs[0][AttributeNames.SDFMethod].value]}(p, ${vs.length > 1 ? `${getMethodRecursive(vs.slice(1))} *` : ''}${vs[0][
-    AttributeNames.MethodScale
-  ].value.toFixed(3)})`;
 
 const getGridSpacing = (data: Version0Type): [number, number] => [
   (data['Main Methods'].v as any).xSpacing.value,

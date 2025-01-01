@@ -1,3 +1,5 @@
+const circles = ['AYwSCQyAASLThAU5TZ2JoNf_______9MHave4an4inspirational4xMas88and4all4the4best4into4the4new4year46788love4Jonas'];
+
 const dots = [
   'A4xtxIhOIJxBv4KAAD4AABlrJpbaurh___-XuNJg7V73DU_EU9lMVbVsVE7UvGJjVnnjU7vDUsvFsL3Db1lvEU9tHFsL3E72HGTzVfHXfnktF73BNE7Vg',
   'A4otxIhOIJxBdIKAAC4AACq6wuUMvL________pg7V73DU_EU9lMVbVsVE7UvGJjVnnjU7vDUsvFsL3Db1lvEU9tHFsL3E72HGTzVfHXfnktF73BNE7Vg',
@@ -16,3 +18,5 @@ const triagles = [
   'CgPAFZGQnEE4glHFAAEQAABFAAOIAAAQMSw5TZ2JoNf_______9MHave4an4inspirational4xMas88and4all4the4best4into4the4new4year46788love4Jonas',
   'CgPAFZGQnEE4gzdVAAEQAAA1AAOIAAADHSw5TZ2JoNf_______9MHave4an4inspirational4xMas88and4all4the4best4into4the4new4year46788love4Jonas',
 ];
+
+const warpedGrid = ['DU-HqRAQkDBwGP6CgAJtAAAhymzsTQa________6YO1e9w1PxFPZTFW1bFRO1LxiY1Z541O7w1LLxbC9w29ZbxFPbRxbC9xO9hxk81Xx1355LRe9wTRO1Y'];
