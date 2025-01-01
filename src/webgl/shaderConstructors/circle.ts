@@ -2,6 +2,7 @@ import { getNNumbersForSeed } from './sharedMethods';
 import circleMethods from '../../Shaders/tpmsCircles.glsl?raw';
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
 import { MAX_WIDTH, MAX_HEIGHT } from './screenBounds';
+import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
 
 const CIRCLE_COUNT_VARIABLE_NAME = 'CIRCLE_COUNT';
 const CIRCLES_VARIABLE_NAME = 'CIRCLES';
@@ -23,29 +24,15 @@ const getCircles = (minSize: number, maxSize: number, count: number, seed: numbe
   return xs.map((x, i) => [x, ys[i], rs[i]]);
 };
 
-export const getCircleFragmentShader = (
-  count: number,
-  minSize: number,
-  maxSize: number,
-  seed: number,
-  sinAmplitude: number,
-  color0: [number, number, number],
-  color1: [number, number, number],
-  rotationSpeed: number,
-  angleMultiplier: number,
-  centerOffsetMultiplier: number,
-  edgeThickness: number
-): string => {
-  const [sizeMin, sizeMax] = [minSize, maxSize].sort((a, b) => a - b);
-  const circles = getCircles(sizeMin, sizeMax, count, seed);
+export const getCircleFragmentShader = (data: Version0Type): string => {
+  const [sizeMin, sizeMax] = [(data['Main Methods'].v as any).minSize.value, (data['Main Methods'].v as any).maxSize.value].sort((a, b) => a - b);
+  const circles = getCircles(sizeMin, sizeMax, (data['Main Methods'].v as any).count.value, (data['Main Methods'].v as any).seed.value);
 
   return `
-const vec3 color0 = vec3( ${color0[0].toFixed(3)}, ${color0[1].toFixed(3)}, ${color0[2].toFixed(3)} );
-const vec3 color1 = vec3( ${color1[0].toFixed(3)}, ${color1[1].toFixed(3)}, ${color1[2].toFixed(3)} );
-const float ROTATION_VELOCITY = ${rotationSpeed.toFixed(3)};
-const float ANGLE_MULTIPLIER = ${angleMultiplier.toFixed(3)};
-const float CENTER_OFFSET_MULTIPLIER = ${centerOffsetMultiplier.toFixed(3)};
-const float EDGE_THICKNESS = ${edgeThickness.toFixed(3)};
+const float ROTATION_VELOCITY = ${(data['Main Methods'].v as any).rotationSpeed.value.toFixed(3)};
+const float ANGLE_MULTIPLIER = ${(data['Main Methods'].v as any).angleMultiplier.value.toFixed(3)};
+const float CENTER_OFFSET_MULTIPLIER = ${(data['Main Methods'].v as any).centerOffsetMultiplier.value.toFixed(3)};
+const float EDGE_THICKNESS = ${(data['Main Methods'].v as any).edgeThickness.value.toFixed(3)};
 
 ${getCircleArray(circles)}
 ${sharedMethods}
@@ -64,8 +51,8 @@ void main() {
   float d = sdMethod(uvV.xy);
 
   ${
-    sinAmplitude > 0
-      ? `d = sin(d * ${sinAmplitude.toFixed(3)}) * 0.5 + 0.5;`
+    (data['Main Methods'].v as any).sinAmplitude.value > 0
+      ? `d = sin(d * ${(data['Main Methods'].v as any).sinAmplitude.value.toFixed(3)}) * 0.5 + 0.5;`
       : `if (d < EDGE_THICKNESS) {
     d = max(pow(d / EDGE_THICKNESS, 1.9), 0.0);
   }
