@@ -1,7 +1,7 @@
 import { Version0Type } from '../../modelDefinition/types/version0.generatedType';
 import tpmsMethodDefinitions from '../../Shaders/tpmsMethodDefinitions.glsl?raw';
 import sharedMethods from '../../Shaders/tpmsShared.glsl?raw';
-import { getMethodRecursive, SDFMethodNames } from './sharedMethods';
+import { getMethodRecursive } from './sharedMethods';
 
 const getWarpVectorMethod = (data: Version0Type) => {
   let xMethod = '';
