@@ -4,6 +4,7 @@ import { getDotsFragmentShader } from './dots';
 import { getDreiEckFragmentShader } from './dreiEck';
 import { getColorAsignment } from './sharedMethods';
 import { getWarpedGridFragmentShader } from './warpedGrid';
+import { getWavesFragmentShader } from './waves';
 
 const simpleUVShader = `
 varying vec3 uvV;
@@ -21,6 +22,12 @@ export const getFragmentShader = (data: Version0Type): string => {
         break;
       case 1: // dots
         shader = getDotsFragmentShader(data);
+        break;
+      // case 2: // line-art
+      //   shader = getLineArtFragmentShader(data);
+      //   break;
+      case 3: // waves
+        shader = getWavesFragmentShader(data);
         break;
       case 5: // drei eck
         shader = getDreiEckFragmentShader(data);

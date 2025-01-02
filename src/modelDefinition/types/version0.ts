@@ -66,7 +66,17 @@ const mainMethods: EnumEntryDataType = [
   // line art
   [],
   // waves
-  [],
+  [
+    DataEntryFactory.createFloat(100, 10, 1000, -1, 'waveHeight'),
+    DataEntryFactory.createInt(1, 1, 10, 'waveFronts'),
+    DataEntryFactory.createInt(1, 1, 10, 'waveCount'),
+    DataEntryFactory.createInt(100, 0, 500, 'waveShift'),
+    DataEntryFactory.createFloat(10, 2.0, 1000, 1, 'amplitude'),
+    DataEntryFactory.createFloat(10, 2.0, 1000, 1, 'period'),
+    DataEntryFactory.createFloat(0.0, -100, 100, 1, 'stackOffsetX'),
+    DataEntryFactory.createFloat(0.0, -100, 100, 1, 'stackOffsetY'),
+    DataEntryFactory.createFloat(1, 0, 10, 3, 'uPhaseShift'),
+  ],
   // moiree
   [],
   // Drei Eck
