@@ -20,3 +20,8 @@ const triagles = [
 ];
 
 const warpedGrid = ['DU-HqRAQkDBwGP6CgAJtAAAhymzsTQa________6YO1e9w1PxFPZTFW1bFRO1LxiY1Z541O7w1LLxbC9w29ZbxFPbRxbC9xO9hxk81Xx1355LRe9wTRO1Y'];
+
+const waves = [
+  'BjJkssYNXHKXtY6MEo505Ode6if_______0wdq97hqfiKeymKtq2KidqXjExqzzxqd3hqWXi2F7ht6y3iKe2ji2F7id7DjJ5qvjrvzyWi97gmidqw',
+  'BkZAssYK0LnXKbCoJFp05Ode6if_______0wdq97hqfiKeymKtq2KidqXjExqzzxqd3hqWXi2F7ht6y3iKe2ji2F7id7DjJ5qvjrvzyWi97gmidqw',
+];
