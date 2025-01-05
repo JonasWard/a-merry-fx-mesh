@@ -5,7 +5,7 @@ import { VersionNames } from '../enums/versionNames';
 export enum ShaderNames {
   Circles = 'Circles',
   Dots = 'Dots',
-  LineArt = 'Line Art',
+  PatternGen = 'Pattern Generator',
   Waves = 'Waves',
   Moiree = 'Moiree',
   DreiEck = 'Drei Eck',
@@ -15,7 +15,7 @@ export enum ShaderNames {
 export const shaderMethods = [
   ShaderNames.Circles,
   ShaderNames.Dots,
-  ShaderNames.LineArt,
+  ShaderNames.PatternGen,
   ShaderNames.Waves,
   ShaderNames.Moiree,
   ShaderNames.DreiEck,

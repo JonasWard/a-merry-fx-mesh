@@ -79,7 +79,15 @@ const mainMethods: EnumEntryDataType = [
     [AttributeNames.DotMethods, dotsMethodVersionStack],
   ],
   // line art
-  [],
+  [
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `xOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `yOffset`),
+    DataEntryFactory.createFloat(0.0, -1000, 1000, 1, `zOffset`),
+    [AttributeNames.DotMethods, dotsMethodVersionStack],
+    DataEntryFactory.createBoolean(true, 'hardEdges'),
+    DataEntryFactory.createFloat(0.01, 0.0, 0.1, 3, 'uTimeMultiplier'),
+    DataEntryFactory.createInt(500, 0, 2500, 'uR'),
+  ],
   // waves
   [
     DataEntryFactory.createFloat(5, 1, 100, 0, 'waveHeight'),

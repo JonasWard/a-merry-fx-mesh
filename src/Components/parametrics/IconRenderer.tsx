@@ -103,7 +103,7 @@ export const getIconForKey = (
       return { mainIcon: <PiCirclesThree /> };
     case ShaderNames.Dots:
       return { mainIcon: <PiDotsNineLight size={size} /> };
-    case ShaderNames.LineArt:
+    case ShaderNames.PatternGen:
       return { mainIcon: <BsSoundwave size={size} /> };
     case ShaderNames.Waves:
       return { mainIcon: <LuWaves size={size} /> };

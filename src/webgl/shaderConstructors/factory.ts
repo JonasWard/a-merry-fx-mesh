@@ -3,6 +3,7 @@ import { getCircleFragmentShader } from './circle';
 import { getDotsFragmentShader } from './dots';
 import { getDreiEckFragmentShader } from './dreiEck';
 import { getMoireeFragmantShader } from './moiree';
+import { getPatternGenFragmentShader } from './patternGen';
 import { getColorAsignment } from './sharedMethods';
 import { getWarpedGridFragmentShader } from './warpedGrid';
 import { getWavesFragmentShader } from './waves';
@@ -24,9 +25,9 @@ export const getFragmentShader = (data: Version0Type): string => {
       case 1: // dots
         shader = getDotsFragmentShader(data);
         break;
-      // case 2: // line-art
-      //   shader = getLineArtFragmentShader(data);
-      //   break;
+      case 2: // pattern-gen
+        shader = getPatternGenFragmentShader(data);
+        break;
       case 3: // waves
         shader = getWavesFragmentShader(data);
         break;
