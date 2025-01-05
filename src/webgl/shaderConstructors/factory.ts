@@ -2,6 +2,7 @@ import { Version0Type } from '../../modelDefinition/types/version0.generatedType
 import { getCircleFragmentShader } from './circle';
 import { getDotsFragmentShader } from './dots';
 import { getDreiEckFragmentShader } from './dreiEck';
+import { getMoireeFragmantShader } from './moiree';
 import { getColorAsignment } from './sharedMethods';
 import { getWarpedGridFragmentShader } from './warpedGrid';
 import { getWavesFragmentShader } from './waves';
@@ -28,6 +29,9 @@ export const getFragmentShader = (data: Version0Type): string => {
       //   break;
       case 3: // waves
         shader = getWavesFragmentShader(data);
+        break;
+      case 4: // moiree
+        shader = getMoireeFragmantShader(data);
         break;
       case 5: // drei eck
         shader = getDreiEckFragmentShader(data);
