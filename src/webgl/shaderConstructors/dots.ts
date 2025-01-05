@@ -180,15 +180,15 @@ float getGridIndex(vec3 p) {
   vec2 idx = floor(p.xy / minGridSize);
   vec2 center = (idx + vec2(.5)) * minGridSize;
 
-  float scaledRadius = ${
+  float scale = ${
     (data['Main Methods'].v as any).twinkleRate.value === 0
       ? '1.0'
       : `(0.5 + .5 * sdPerlin(vec3(center, uTime * ${(1 / (data['Main Methods'].v as any).twinkleRate.value).toFixed(5)}), 997.0))`
-  } * dotRadius;
+  };
   float d = getMainDistance(vec3((idx + vec2(.5)) * minGridSize, 0.0) + offset);
 
   if (isDot(mod(idx, iterationCount), d)) {
-    return sdCircle(vec3(center, scaledRadius), p.xy) * .5;
+    return sdCircle(vec3(center, scale * dotRadius), p.xy) * .5;
   } else {
     return 1.0;
   }
