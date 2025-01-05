@@ -5,20 +5,26 @@ import { ParametricInput } from './Components/parametrics/ParametricInput';
 import { useData } from './state/state';
 import { ThreeCanvas } from './webgl/ThreeCanvas';
 import { useParams } from 'react-router-dom';
-import { Button, message } from 'antd';
-import { LiaFileDownloadSolid } from 'react-icons/lia';
+import { message } from 'antd';
+import { LiaEdit, LiaFileDownloadSolid } from 'react-icons/lia';
 import { enumSemantics } from './modelDefinition/types/methodSemantics';
 
 const defaultState = 'CjmED5KWnEE4gzdVAAEQAAA1AAAwAAAAcV0AMvrr6-v_______9MHave4an4inspirational4xMas88and4all4the4best4into4the4new4year46788love4Jonas';
 
 export const App: React.FC = () => {
   const { stateString } = useParams();
+  const [editMode, setEditMode] = React.useState(localStorage.getItem('editMode') === 'true');
   const data = useData((s) => s.data);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     window.history.replaceState(null, 'Same Page Title', `/a-merry-fx-mesh/#${parserObjects.stringify(data)}`);
   }, [data]);
+
+  const toggleEditMode = () => {
+    localStorage.setItem('editMode', String(!editMode));
+    setEditMode(!editMode);
+  };
 
   useEffect(() => {
     if (stateString) {
@@ -54,10 +60,13 @@ export const App: React.FC = () => {
   return (
     <>
       <ThreeCanvas canvasRef={canvasRef} />
-      <Button style={{ position: 'fixed', top: '15px', right: '15px' }} onClick={downloadPNG}>
-        <LiaFileDownloadSolid style={{ position: 'absolute', width: 20, height: 20 }} size={16} />
-      </Button>
-      <ParametricInput versionEnumSemantics={enumSemantics} />
+      <LiaFileDownloadSolid
+        style={{ position: 'fixed', top: '15px', right: '15px', width: 20, height: 20, cursor: 'pointer' }}
+        size={16}
+        onClick={downloadPNG}
+      />
+      <LiaEdit style={{ position: 'fixed', bottom: '15px', right: '15px', width: 20, height: 20, cursor: 'pointer' }} size={16} onClick={toggleEditMode} />
+      {editMode && <ParametricInput versionEnumSemantics={enumSemantics} />}
     </>
   );
 };
