@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { CiLineHeight, CiTextAlignCenter } from 'react-icons/ci';
-import { FaKey, FaCog, FaRegCircle, FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
-import { FaRegSquareFull } from 'react-icons/fa6';
+import { FaKey, FaCog, FaRegCircle, FaArrowsAltH, FaArrowsAltV, FaArrowsAlt, FaEquals, FaAlignJustify, FaAlignCenter } from 'react-icons/fa';
+import { FaBars, FaRegSquareFull } from 'react-icons/fa6';
 import { PiChurchDuotone, PiCirclesThree, PiCylinderThin, PiDotsNineLight, PiStackPlusFill, PiWaveSine } from 'react-icons/pi';
 import { GiFootprint, GiShardSword, GiWireframeGlobe } from 'react-icons/gi';
 import { MdGrid4X4, MdOutlineFitScreen } from 'react-icons/md';
@@ -13,9 +13,9 @@ import { AiOutlineBgColors } from 'react-icons/ai';
 import { HiOutlineColorSwatch } from 'react-icons/hi';
 import { BsGrid3X3, BsGrid3X3Gap, BsNoiseReduction, BsSoundwave } from 'react-icons/bs';
 import { TbArrowCurveLeft, TbTriangles } from 'react-icons/tb';
-import { GrPaint } from 'react-icons/gr';
+import { GrPaint, GrTextAlignCenter } from 'react-icons/gr';
 import { VscDatabase } from 'react-icons/vsc';
-import { LuWaves } from 'react-icons/lu';
+import { LuChartBarIncreasing, LuWaves } from 'react-icons/lu';
 import { IoCubeOutline } from 'react-icons/io5';
 
 import imagegyroid from 'src/assets/icons/gyroid.png';
@@ -189,6 +189,14 @@ export const getIconForKey = (
       return { mainIcon: <FaArrowsAltV size={size} /> };
     case 'xy':
       return { mainIcon: <FaArrowsAlt size={size} /> };
+    case 'Equal':
+      return { mainIcon: <FaAlignJustify size={size} /> };
+    case 'Pairs':
+      return { mainIcon: <FaAlignCenter size={size} /> };
+    case 'Trees':
+      return { mainIcon: <FaBars size={size} /> };
+    case 'Ramp':
+      return { mainIcon: <LuChartBarIncreasing size={size} /> };
     default:
       return { mainIcon: name };
   }

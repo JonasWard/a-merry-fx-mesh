@@ -1,6 +1,6 @@
 import { DataEntryFactory } from 'url-safe-bitpacking';
 import { AttributeNames } from '../enums/attributeNames';
-import { ArrayEntryDataType, EnumEntryDataType, SingleLevelContentType } from 'url-safe-bitpacking/dist/types';
+import { ArrayEntryDataType, EnumEntryDataType, NonEmptyValidEntryArrayType, SingleLevelContentType } from 'url-safe-bitpacking/dist/types';
 import { SDFMainMethodLabels } from './methodSemantics';
 
 const dotsMethodVersionStack: ArrayEntryDataType = [
@@ -37,6 +37,21 @@ const dreiEckWarp: EnumEntryDataType = [
   ],
   [],
 ];
+
+const minMaxMultiplier: NonEmptyValidEntryArrayType = [
+  DataEntryFactory.createFloat(0.9, 0.1, 1.0, 2, 'minMultiplier'),
+  DataEntryFactory.createFloat(1.1, 1.0, 10.0, 2, 'maxMultiplier'),
+];
+
+const angleMinMaxMultiplier: NonEmptyValidEntryArrayType = [
+  DataEntryFactory.createFloat(0.0, -0.5, 0.5, 3, 'minMultiplier'),
+  DataEntryFactory.createFloat(0.0, -0.5, 0.5, 3, 'maxMultiplier'),
+];
+
+const empty = [] as any as NonEmptyValidEntryArrayType;
+
+const moireeDeltaType: EnumEntryDataType = [3, empty, minMaxMultiplier, minMaxMultiplier, minMaxMultiplier];
+const moireeAngleVariationType: EnumEntryDataType = [3, empty, angleMinMaxMultiplier, angleMinMaxMultiplier, angleMinMaxMultiplier];
 
 const mainMethods: EnumEntryDataType = [
   0,
@@ -80,9 +95,22 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createFloat(0.5, 0, 100, 2, 'uPhaseShift'),
     DataEntryFactory.createBoolean(false, 'stepColors'),
     DataEntryFactory.createBoolean(false, 'stepHeights'),
+    DataEntryFactory.createBoolean(true, 'hardEdges'),
   ],
   // moiree
-  [],
+  [
+    DataEntryFactory.createInt(9, 2, 21, `directionCount`),
+    DataEntryFactory.createBoolean(true, 'hardEdge'),
+    ['moireeAngleVariationPattern', moireeAngleVariationType],
+    DataEntryFactory.createFloat(10, 0.1, 100, 1, `directionWidth`),
+    DataEntryFactory.createFloat(25, 2, 100, 1, `directionDelta`),
+    ['moireeDeltaPattern', moireeDeltaType],
+    DataEntryFactory.createFloat(10, 2, 100, 1, `centerDelta`),
+    ['moireeCenterPattern', moireeDeltaType],
+    DataEntryFactory.createFloat(0.1, 0.0, 1.0, 2, `uAlphaDeltaMultiplier`),
+    DataEntryFactory.createFloat(0.01, 0.0, 1.0, 3, `uTimeMultiplier`),
+  ],
+
   // Drei Eck
   [
     DataEntryFactory.createFloat(100, 10, 250, 1, 'xSpacing'),
@@ -91,7 +119,8 @@ const mainMethods: EnumEntryDataType = [
     DataEntryFactory.createBoolean(false, 'filled'),
     DataEntryFactory.createBoolean(false, 'inverted'),
     [AttributeNames.Warp, dreiEckWarp],
-    DataEntryFactory.createFloat(0.1, 0.001, 1, 3, 'uTimeMultiplier'),
+    DataEntryFactory.createBoolean(true, 'hardEdges'),
+    DataEntryFactory.createFloat(0.1, 0.0, 5, 2, 'uTimeMultiplier'),
     DataEntryFactory.createInt(500, 0, 1000, 'uR'),
   ],
   // Warped Grid

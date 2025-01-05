@@ -49,6 +49,8 @@ export const mainMethods = [
 
 const warpDirections = ['x', 'y', 'xy', 'none'];
 
+const moireeEnums = ['Equal', 'Pairs', 'Trees', 'Ramp'].map((label, value) => ({ value, label }));
+
 export const PointsMainMethodLabels = shaderMethods.map((value, index) => ({ value: index, label: value }));
 export const SDFMainMethodLabels = mainMethods.map((value, index) => ({ value: index, label: value }));
 export const enumSemantics: EnumSemantics = {
@@ -56,4 +58,7 @@ export const enumSemantics: EnumSemantics = {
   [AttributeNames.SDFMethod]: SDFMainMethodLabels,
   [AttributeNames.Version]: [{ value: 0, label: VersionNames.Alpha }],
   [AttributeNames.Warp]: warpDirections.map((label, value) => ({ value, label })),
+  ['moireeDeltaPattern']: moireeEnums,
+  ['moireeCenterPattern']: moireeEnums,
+  ['moireeAngleVariationPattern']: moireeEnums,
 };

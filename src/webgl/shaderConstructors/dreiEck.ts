@@ -79,9 +79,8 @@ const getWarpDirection = (data: Version0Type): string => {
 };
 
 const getDistanceMapping = (data: Version0Type): string => {
-  let methodString = (data['Main Methods'].v as any).inverted.value ? '1.0 - ' : '';
-  if ((data['Main Methods'].v as any).filled.value) return methodString + '(.5 + sdMethod(uvV.xy) * .5)';
-  else return methodString + '(abs(sdMethod(uvV.xy)))';
+  if ((data['Main Methods'].v as any).filled.value) return '(.5 + sdMethod(uvV.xy) * .5)';
+  else return '(abs(sdMethod(uvV.xy)))';
 };
 
 export const getDreiEckFragmentShader = (data: Version0Type): string => {
@@ -89,6 +88,11 @@ export const getDreiEckFragmentShader = (data: Version0Type): string => {
   const gridSpacing = getGridSpacing(data);
   const xAxis = getXAxis(data);
   const yAxis = getYAxis(data);
+  const hardEdges = (data['Main Methods'].v as any).hardEdges.value;
+
+  const xSpacing = (data['Main Methods'].v as any).xSpacing.value;
+  const ySpacing = (data['Main Methods'].v as any).ySpacing.value;
+  const inverted = (data['Main Methods'].v as any).inverted.value;
 
   return `
 const vec2 grid = vec2(${gridSpacing[0].toFixed(4)}, ${gridSpacing[1].toFixed(4)});
@@ -198,7 +202,7 @@ float sdMethod(vec2 p) {
 }
 
 void main() {
-  float d = ${getDistanceMapping(data)};
+  float d = ${inverted ? '1.0 - ' : ''} (${getDistanceMapping(data)} ${hardEdges ? '' : `* ${(1.0 / Math.min(xSpacing, ySpacing)).toFixed(3)}`} + .5);
   gl_FragColor = vec4(getColor(d), 1.0);
 }`;
 };
